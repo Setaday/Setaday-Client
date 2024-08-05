@@ -1,5 +1,6 @@
-import Image from "next/image";
 import { Button } from "@repo/ui/button";
+import Image from "next/image";
+import "../styles/globals.css";
 import styles from "./page.module.css";
 
 export default function Home() {
