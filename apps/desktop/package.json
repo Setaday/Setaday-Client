@@ -6,7 +6,8 @@
     "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "build:css": "tailwindcss -i ./styles/globals.css -o ./dist/output.css --minify"
   },
   "dependencies": {
     "@repo/ui": "workspace:*",
