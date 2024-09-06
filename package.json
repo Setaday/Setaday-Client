@@ -7,9 +7,13 @@
     "dev": "turbo dev",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "build:css": "turbo run build:css"
+    "build:css": "turbo run build:css",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "turbo run build --filter=@repo/ui && changeset publish"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.27.8",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.41",
     "prettier": "^3.3.3",
