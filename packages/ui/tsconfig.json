@@ -4,6 +4,6 @@
     "types": ["vitest/globals"],
     "outDir": "dist"
   },
-  "include": ["src", "vitest.setup.ts"],
+  "include": ["**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", "dist"]
 }
