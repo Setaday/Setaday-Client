@@ -10,7 +10,7 @@
   "scripts": {
     "test": "vitest",
     "clean": "rm -rf dist",
-    "build": "pnpm clean && tsup --format cjs,esm --dts --sourcemap",
+    "build": "pnpm clean && tsup",
     "generate:component": "turbo gen react-component",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
