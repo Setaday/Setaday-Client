@@ -2,11 +2,13 @@
   "name": "@repo/ui",
   "version": "0.0.0",
   "private": true,
-  "exports": {
-    "./button": "./src/button.tsx",
-    "./card": "./src/card.tsx",
-    "./code": "./src/code.tsx"
-  },
+  "description": "Design System for Setaday",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "test": "vitest",
     "clean": "rm -rf dist",
@@ -42,5 +44,12 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "vitest": "^2.0.5"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
