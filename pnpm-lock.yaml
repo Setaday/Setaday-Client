@@ -134,6 +134,19 @@ importers:
         specifier: ^5.3.3
         version: 5.5.4
 
+  packages/icon:
+    dependencies:
+      react:
+        specifier: ^18.3.1
+        version: 18.3.1
+    devDependencies:
+      '@types/react':
+        specifier: ^18.3.5
+        version: 18.3.5
+      typescript:
+        specifier: ^5.5.4
+        version: 5.5.4
+
   packages/typescript-config: {}
 
   packages/ui:
@@ -8016,7 +8029,7 @@ snapshots:
 
   '@types/react-dom@18.3.0':
     dependencies:
-      '@types/react': 18.3.3
+      '@types/react': 18.3.5
 
   '@types/react@18.3.3':
     dependencies:
