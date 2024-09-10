@@ -1,0 +1,18 @@
+{
+  "name": "@setaday/icon",
+  "description": "Setaday에서 사용되는 icon을 제공해요.",
+  "version": "1.0.0",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.5",
+    "typescript": "^5.5.4"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
