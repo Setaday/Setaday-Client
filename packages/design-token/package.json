@@ -1,0 +1,17 @@
+{
+  "name": "@setaday/design-token",
+  "description": "Setaday에서 사용되는 design token을 제공해요.",
+  "version": "1.0.0",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.6.2"
+  },
+  "peerDependencies": {
+    "tailwindcss": "^3.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
