@@ -1,20 +1,32 @@
-"use client";
+import { type ButtonHTMLAttributes } from "react";
+import { cn } from "@setaday/util";
+import { buttonVariants } from "./Button.styles";
 
-import { ReactNode } from "react";
-
-interface ButtonProps {
-  children: ReactNode;
-  className?: string;
-  appName: string;
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  color?: "default" | "disabled" | "cancel";
+  font?: "default" | "mobile_donate";
+  size?: "default" | "desktop" | "mobile" | "desktop_donate" | "mobile_donate";
+  disabled?: boolean;
 }
 
-export const Button = ({ children, className, appName }: ButtonProps) => {
+const Button = ({
+  color,
+  size,
+  font,
+  disabled,
+  className,
+  children,
+  onClick,
+}: ButtonProps) => {
   return (
     <button
-      className={className}
-      onClick={() => alert(`Hello from your ${appName} app!`)}
+      className={cn(buttonVariants({ color, font, size, disabled }), className)}
+      onClick={onClick}
+      disabled={disabled}
     >
-      {children}
+      <span className="text-white">{children}</span>
     </button>
   );
 };
+
+export default Button;
