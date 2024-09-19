@@ -1,5 +1,5 @@
 const color = {
-  key: "#3875EC",
+  key: "#4F8FF6",
   white: "#FFFFFF",
   black: "#000000",
 
