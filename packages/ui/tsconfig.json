@@ -1,5 +1,5 @@
 {
-  "extends": "@repo/typescript-config/react-library.json",
+  "extends": "@setaday/typescript-config/react-library.json",
   "compilerOptions": {
     "types": ["vitest/globals"],
     "outDir": "dist"
