@@ -1,5 +1,11 @@
 # @setaday/ui
 
+## 1.0.2
+
+### Patch Changes
+
+- 69de900: Update Dependencies
+
 ## 1.0.1
 
 ### Patch Changes
