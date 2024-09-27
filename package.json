@@ -2,7 +2,7 @@
   "name": "setaday",
   "private": true,
   "scripts": {
-    "prepare": "husky",
+    "postinstall": "husky install",
     "test": "turbo test",
     "build": "turbo build",
     "dev": "turbo dev",
