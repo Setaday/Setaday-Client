@@ -1,0 +1,7 @@
+public
+dist
+pnpm-lock.yaml
+pnpm-workspace.yaml
+.changeset/**/*.md
+.husky
+**/.turbo
