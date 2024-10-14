@@ -1,5 +1,11 @@
 # @setaday/ui
 
+## 1.1.0
+
+### Minor Changes
+
+- 68db3ec: Add TextField Component
+
 ## 1.0.2
 
 ### Patch Changes
