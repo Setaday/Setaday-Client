@@ -1,5 +1,11 @@
 # @setaday/icon
 
+## 1.1.1
+
+### Patch Changes
+
+- 2ad0f3a: Fix MobileIconDonate
+
 ## 1.1.0
 
 ### Minor Changes
