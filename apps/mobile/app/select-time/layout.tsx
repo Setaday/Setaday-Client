@@ -6,11 +6,9 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko">
-      <body>
-        <SelectTimeHeader />
-        {children}
-      </body>
-    </html>
+    <>
+      <SelectTimeHeader />
+      {children}
+    </>
   );
 }

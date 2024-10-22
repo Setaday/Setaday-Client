@@ -18,7 +18,7 @@ function SelectTimeHeader() {
   };
 
   return (
-    <header className="flex h-[5.2rem] items-center justify-between border border-red-500 px-[2rem]">
+    <header className="border-gray-1 flex h-[5.2rem] items-center justify-between border-b-2 px-[2rem]">
       <Link href="/">
         <MobileLogo />
       </Link>

@@ -142,7 +142,7 @@
   #root,
   body,
   html {
-    @apply m-0 mx-auto min-h-[100dvh] w-[100vw] max-w-[43rem] bg-[#f5f5f5];
+    @apply m-0 mx-auto min-h-[100dvh] w-[100vw] max-w-[43rem];
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
