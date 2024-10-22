@@ -1,3 +1,189 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  /* Reset CSS */
+  html,
+  body,
+  div,
+  span,
+  applet,
+  object,
+  iframe,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  blockquote,
+  pre,
+  a,
+  abbr,
+  acronym,
+  address,
+  big,
+  cite,
+  code,
+  del,
+  dfn,
+  em,
+  img,
+  ins,
+  kbd,
+  q,
+  s,
+  samp,
+  small,
+  strike,
+  strong,
+  sub,
+  sup,
+  tt,
+  var,
+  b,
+  u,
+  i,
+  center,
+  dl,
+  dt,
+  dd,
+  ol,
+  ul,
+  li,
+  fieldset,
+  form,
+  label,
+  legend,
+  table,
+  caption,
+  tbody,
+  tfoot,
+  thead,
+  tr,
+  th,
+  td,
+  article,
+  aside,
+  canvas,
+  details,
+  embed,
+  figure,
+  figcaption,
+  footer,
+  header,
+  hgroup,
+  main,
+  menu,
+  nav,
+  output,
+  ruby,
+  section,
+  summary,
+  time,
+  mark,
+  audio,
+  video {
+    @apply m-0 border-0 p-0 align-baseline;
+    font-size: 100%;
+  }
+
+  article,
+  aside,
+  details,
+  figcaption,
+  figure,
+  footer,
+  header,
+  hgroup,
+  main,
+  menu,
+  nav,
+  section {
+    @apply block;
+  }
+
+  *[hidden] {
+    @apply hidden;
+  }
+
+  body {
+    @apply relative antialiased;
+    overscroll-behavior: none;
+    line-height: 1;
+    touch-action: manipulation;
+  }
+
+  menu,
+  ol,
+  ul {
+    @apply list-none;
+  }
+
+  blockquote,
+  q {
+    quotes: none;
+  }
+
+  blockquote::before,
+  blockquote::after,
+  q::before,
+  q::after {
+    content: "";
+    content: none;
+  }
+
+  table {
+    @apply border-collapse border-spacing-0;
+  }
+
+  #root,
+  body,
+  html {
+    @apply m-0 mx-auto min-h-[100dvh] max-w-[43rem] bg-[#f5f5f5];
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  #root::-webkit-scrollbar {
+    @apply hidden;
+  }
+
+  * {
+    @apply box-border;
+  }
+
+  html {
+    @apply flex select-none justify-center scroll-smooth text-[62.5%];
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: rgb(0 0 0 / 0%);
+  }
+
+  ul,
+  li {
+    @apply list-none pl-0;
+  }
+
+  a {
+    @apply text-inherit no-underline;
+  }
+
+  input,
+  button {
+    @apply border-0 bg-transparent outline-none;
+  }
+
+  button {
+    @apply cursor-pointer p-0;
+  }
+
+  input {
+    appearance: none;
+  }
+
+  input:focus {
+    @apply outline-none;
+  }
+}
