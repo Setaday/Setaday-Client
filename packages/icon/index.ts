@@ -3,7 +3,7 @@ export { default as DesktopIconSharing } from "./src/DesktopIconSharing";
 export { default as DesktopIconTeam } from "./src/DesktopIconTeam";
 export { default as DesktopLogo } from "./src/DesktopLogo";
 export { default as MobileIconArrowDown } from "./src/MobileIconArrowDown";
-export { default as MoblieIconArrowDownSmall } from "./src/MobileIconArrowDownSmall";
+export { default as MobileIconArrowDownSmall } from "./src/MobileIconArrowDownSmall";
 export { default as MobileIconArrowLeftBlack } from "./src/MobileIconArrowLeftBlack";
 export { default as MobileIconArrowLeftGray } from "./src/MobileIconArrowLeftGray";
 export { default as MobileIconArrowRightGray } from "./src/MobileIconArrowRightGray";
