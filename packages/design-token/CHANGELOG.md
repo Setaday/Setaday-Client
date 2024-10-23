@@ -1,5 +1,11 @@
 # @setaday/design-token
 
+## 2.0.0
+
+### Major Changes
+
+- e5f03d3: Change font object format
+
 ## 1.1.0
 
 ### Minor Changes
