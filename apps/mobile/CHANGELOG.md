@@ -1,5 +1,13 @@
 # mobile
 
+## 0.1.4
+
+### Patch Changes
+
+- Updated dependencies [e5f03d3]
+  - @setaday/design-token@2.0.0
+  - @setaday/ui@1.1.1
+
 ## 0.1.3
 
 ### Patch Changes
