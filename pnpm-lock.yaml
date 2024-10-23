@@ -105,6 +105,12 @@ importers:
 
   apps/mobile:
     dependencies:
+      '@setaday/design-token':
+        specifier: workspace:*
+        version: link:../../packages/design-token
+      '@setaday/icon':
+        specifier: workspace:*
+        version: link:../../packages/icon
       '@setaday/ui':
         specifier: workspace:*
         version: link:../../packages/ui
