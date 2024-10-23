@@ -1,5 +1,11 @@
 # @setaday/icon
 
+## 1.1.2
+
+### Patch Changes
+
+- 84ab976: Fix icon package issues
+
 ## 1.1.1
 
 ### Patch Changes
