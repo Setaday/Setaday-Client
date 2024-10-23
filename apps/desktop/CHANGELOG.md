@@ -1,5 +1,11 @@
 # desktop
 
+## 0.1.4
+
+### Patch Changes
+
+- @setaday/ui@1.1.1
+
 ## 0.1.3
 
 ### Patch Changes
