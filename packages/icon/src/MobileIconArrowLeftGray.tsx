@@ -1,4 +1,4 @@
-import type { SVGProps } from 'react';
+import type { SVGProps } from "react";
 
 const MobileIconArrowLeftGray = (props: SVGProps<SVGSVGElement>) => {
   return (
@@ -6,9 +6,9 @@ const MobileIconArrowLeftGray = (props: SVGProps<SVGSVGElement>) => {
       <path
         d="M13 15.5L9 11.5L13 7.5"
         stroke="#C9D4DA"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
