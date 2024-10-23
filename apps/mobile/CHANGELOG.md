@@ -1,5 +1,12 @@
 # mobile
 
+## 0.1.5
+
+### Patch Changes
+
+- Updated dependencies [84ab976]
+  - @setaday/icon@1.1.2
+
 ## 0.1.4
 
 ### Patch Changes
