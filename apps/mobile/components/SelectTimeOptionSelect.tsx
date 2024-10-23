@@ -1,6 +1,6 @@
 "use client";
 
-import { MobileIconArrowUpSmall, MoblieIconArrowDownSmall } from "@setaday/icon";
+import { MobileIconArrowUpSmall, MobileIconArrowDownSmall } from "@setaday/icon";
 import React, { useState } from "react";
 
 interface SelectTimeOptionSelectProps {
@@ -30,7 +30,7 @@ function SelectTimeOptionSelect({ selectTimeOption, handleSelectOption }: Select
       >
         {selectTimeOption === "my" ? "나의 가능 시간" : "전체 가능 시간"}
         <span className={`transition-transform duration-200 ${isSelectOpen ? "rotate-180" : ""}`}>
-          <MoblieIconArrowDownSmall />
+          <MobileIconArrowDownSmall />
         </span>
       </button>
       <div

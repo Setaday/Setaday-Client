@@ -41,7 +41,7 @@ export default function Page() {
                 {selectMode === "write" ? <MobileIconDrawChoose /> : <MobileIconDraw />}
               </button>
               <button onClick={handleClickEraseButton}>
-                {selectMode === "erase" ? <MobileIconEraseChoose /> : <MobileIconDraw />}
+                {selectMode === "erase" ? <MobileIconEraseChoose /> : <MobileIconErase />}
               </button>
             </div>
           )}
