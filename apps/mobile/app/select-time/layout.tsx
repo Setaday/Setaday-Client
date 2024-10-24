@@ -8,7 +8,7 @@ export default function Layout({
   return (
     <>
       <SelectTimeHeader />
-      {children}
+      <div className="px-[2rem]">{children}</div>
     </>
   );
 }

@@ -8,6 +8,10 @@ module.exports = {
     extend: {
       colors: color,
       fontSize: font,
+      fontFamily: {
+        pretendard: ["Pretendard", "sans-serif"],
+        "dm-sans": ["DM Sans", "sans-serif"],
+      },
     },
   },
   plugins: [
