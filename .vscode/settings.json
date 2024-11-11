@@ -3,5 +3,17 @@
     {
       "mode": "auto"
     }
-  ]
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "never",
+    // stylelint 자동 수정
+    "source.fixAll.stylelint": "explicit",
+    // eslint 자동 수정
+    "source.fixAll.eslint": "explicit",
+    "source.fixAll.tslint": "never",
+    // 사용하지 않은 import 삭제
+    "source.organizeImports": "explicit"
+  },
+
+  "stylelint.validate": ["css", "scss", "postcss", "typescript", "typescriptreact"]
 }
