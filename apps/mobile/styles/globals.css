@@ -148,6 +148,8 @@
     @apply m-0 mx-auto min-h-[100dvh] w-[100vw] max-w-[43rem];
     -ms-overflow-style: none;
     scrollbar-width: none;
+    margin: 0;
+    padding: 0;
   }
 
   #root::-webkit-scrollbar {
