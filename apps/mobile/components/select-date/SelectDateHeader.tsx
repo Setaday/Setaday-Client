@@ -1,9 +1,11 @@
+"use client";
+
 import { MobileIconArrowLeftBlack } from "@setaday/icon";
 
 function SelectDateHeader() {
   return (
     <header className="border-gray-1 flex h-[5.2rem] w-[100dvw] items-center justify-between border-b-[1px] px-[0.9rem]">
-      <button>
+      <button onClick={() => window.history.back()}>
         <MobileIconArrowLeftBlack />
       </button>
 
