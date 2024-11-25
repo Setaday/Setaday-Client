@@ -6,34 +6,24 @@
     "test": "turbo test",
     "build": "turbo build",
     "dev": "turbo dev",
-    "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "build:css": "turbo run build:css",
     "changeset": "changeset",
     "version-packages": "changeset version",
-    "release": "turbo run build && changeset publish"
+    "release": "turbo run build && changeset publish",
+    "format": "biome format --write .",
+    "lint": "biome lint .",
+    "check": "biome check --apply ."
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "eslint --fix --cache"
-    ],
-    "**/*": "prettier --write --ignore-unknown"
+    "*.{js,jsx,ts,tsx}": "biome check --apply --format"
   },
   "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
     "@changesets/cli": "^2.27.8",
-    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "autoprefixer": "^10.4.20",
-    "eslint": "^8",
-    "eslint-config-next": "15.0.0-rc.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier": "^5.2.1",
-    "eslint-plugin-react": "^7.36.1",
-    "eslint-plugin-tailwindcss": "^3.17.4",
     "husky": "^9.1.6",
     "lint-staged": "^15.2.10",
     "postcss": "^8.4.41",
-    "prettier": "^3.3.3",
-    "prettier-plugin-tailwindcss": "^0.6.8",
     "tailwindcss": "^3.4.9",
     "turbo": "^2.0.12",
     "typescript": "^5.5.4"
