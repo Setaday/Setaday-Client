@@ -1,7 +1,7 @@
 "use client";
 
 import { SelectTimeOptionSelectProps } from "../app/select-time/type";
-import { MobileIconArrowUpSmall, MobileIconArrowDownSmall } from "@setaday/icon";
+import { MobileIconArrowDownSmall } from "@setaday/icon";
 import React, { useState } from "react";
 
 function SelectTimeOptionSelect({ selectTimeOption, handleSelectOption }: SelectTimeOptionSelectProps) {
