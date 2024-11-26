@@ -6,7 +6,6 @@
     "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
     "build:css": "tailwindcss -i ./styles/globals.css -o ./dist/output.css --minify"
   },
   "dependencies": {
@@ -16,14 +15,10 @@
     "react-dom": "19.0.0-rc-f994737d14-20240522"
   },
   "devDependencies": {
-    "@setaday/eslint-config": "workspace:*",
     "@setaday/typescript-config": "workspace:*",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "eslint": "^8",
-    "eslint-config-next": "15.0.0-rc.0",
-    "eslint-plugin-jsx-a11y": "^6.10.0",
     "typescript": "^5"
   }
 }
