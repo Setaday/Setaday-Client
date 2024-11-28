@@ -1,5 +1,11 @@
 # @setaday/ui
 
+## 1.1.2
+
+### Patch Changes
+
+- db7a77b: change export path
+
 ## 1.1.1
 
 ### Patch Changes
