@@ -2,38 +2,14 @@
 
 import { MobileIconArrowLeftGray, MobileIconArrowRightGray } from "@setaday/icon";
 import { useState } from "react";
+import { getCalendarDate } from "../../constants/getCaledarDate";
 
 function SelectDateCalendar() {
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth() + 1);
 
-  // 이번 달 시작 요일
-  const startDay = new Date(year, month - 1, 1).getDay();
-  // 다음 달 시작 요일
-  const nextStartDay = new Date(year, month, 1).getDay();
-  // 이번 달 마지막 날짜
-  const endDate = new Date(year, month, 0).getDate();
-  // 지난 달 마지막 날짜
-  const lastEndDate = new Date(year, month - 1, 0).getDate();
-
   const DAY = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
-  const DATE = Array.from({ length: endDate }, (_, idx) => idx + 1);
-  const LAST_DATE = Array.from({ length: startDay }, (_, idx) => lastEndDate - (startDay - idx - 1));
-  const NEXT_DATE = Array.from({ length: nextStartDay === 0 ? 0 : 7 - nextStartDay }, (_, idx) => idx + 1);
-
-  const ALL_DATE = [
-    {
-      id: "lastDate",
-      date: LAST_DATE,
-      color: "text-gray-4",
-    },
-    { id: "currentDate", date: DATE, color: "text-gray-6" },
-    {
-      id: "nextDate",
-      date: NEXT_DATE,
-      color: "text-gray-4",
-    },
-  ];
+  const ALL_DATE = getCalendarDate({ year, month });
 
   const changeMonthToEng = (month: number) => {
     switch (month) {
