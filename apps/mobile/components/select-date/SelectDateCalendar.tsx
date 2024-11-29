@@ -21,6 +21,20 @@ function SelectDateCalendar() {
   const LAST_DATE = Array.from({ length: startDay }, (_, idx) => lastEndDate - (startDay - idx - 1));
   const NEXT_DATE = Array.from({ length: nextStartDay === 0 ? 0 : 7 - nextStartDay }, (_, idx) => idx + 1);
 
+  const ALL_DATE = [
+    {
+      id: "lastDate",
+      date: LAST_DATE,
+      color: "text-gray-4",
+    },
+    { id: "currentDate", date: DATE, color: "text-gray-6" },
+    {
+      id: "nextDate",
+      date: NEXT_DATE,
+      color: "text-gray-4",
+    },
+  ];
+
   const changeMonthToEng = (month: number) => {
     switch (month) {
       case 1:
@@ -94,27 +108,13 @@ function SelectDateCalendar() {
         </header>
 
         <div className="grid grid-cols-7 grid-rows-5 gap-x-[2.5rem] gap-y-[3.7rem]">
-          {LAST_DATE.map((date) => {
-            return (
-              <p key={date} className="w-[2.9rem] h-[1.8rem] font-body5_m_14 text-gray-4 text-center">
-                {date}
+          {ALL_DATE.map(({ id, date, color }) =>
+            date.map((num) => (
+              <p key={id + num} className={`w-[2.9rem] h-[1.8rem] font-body5_m_14 ${color} text-center`}>
+                {num}
               </p>
-            );
-          })}
-          {DATE.map((date) => {
-            return (
-              <p key={date} className="w-[2.9rem] h-[1.8rem] font-body5_m_14 text-gray-6 text-center">
-                {date}
-              </p>
-            );
-          })}
-          {NEXT_DATE.map((date) => {
-            return (
-              <p key={date} className="w-[2.9rem] h-[1.8rem] font-body5_m_14 text-gray-4 text-center">
-                {date}
-              </p>
-            );
-          })}
+            ))
+          )}
         </div>
       </article>
     </article>
