@@ -1,4 +1,4 @@
 import "./styles/globals.css";
 
-export * from "./src/Button";
-export * from "./src/TextField";
+export { default as Button } from "./src/Button/Button";
+export { default as TextField } from "./src/TextField/TextField";
