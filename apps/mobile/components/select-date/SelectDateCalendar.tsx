@@ -9,7 +9,7 @@ function SelectDateCalendar() {
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   const [selectedDate, setSelectedDate] = useState<Array<number>>([]);
 
-  const DAY = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
+  const DAY = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
   const ALL_DATE = getCalendarDate({ year, month });
 
   const changeMonthToEng = (month: number) => {
