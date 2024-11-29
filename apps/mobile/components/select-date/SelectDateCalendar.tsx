@@ -7,6 +7,7 @@ import { getCalendarDate } from "../../constants/getCaledarDate";
 function SelectDateCalendar() {
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth() + 1);
+  const [selectedDate, setSelectedDate] = useState<Array<number>>([]);
 
   const DAY = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
   const ALL_DATE = getCalendarDate({ year, month });
@@ -42,6 +43,7 @@ function SelectDateCalendar() {
 
   const handleClickArrow = (arrow: string) => {
     const isLeft = arrow === "left";
+    setSelectedDate([]);
 
     if (isLeft) {
       if (month === 1) {
@@ -60,6 +62,15 @@ function SelectDateCalendar() {
     }
   };
 
+  const handleClickDate = (date: number) => {
+    if (selectedDate.includes(date)) {
+      const newDate = selectedDate.filter((includedDate) => includedDate !== date);
+      setSelectedDate([...newDate]);
+    } else {
+      setSelectedDate([...selectedDate, date]);
+    }
+  };
+
   return (
     <article className="flex flex-col">
       <header className="flex items-center justify-center mb-[2.2rem]">
@@ -72,8 +83,8 @@ function SelectDateCalendar() {
         </button>
       </header>
 
-      <article className="flex flex-col gap-[3.1rem]">
-        <header className="grid grid-cols-7 gap-x-[2.5rem]">
+      <article className="flex flex-col gap-[2rem] px-[1rem]">
+        <header className="grid grid-cols-7 gap-x-[1.3rem]">
           {DAY.map((day) => {
             return (
               <h2 key={day} className="w-[2.9rem] font-body6_m_12 text-gray-2 text-center">
@@ -83,13 +94,25 @@ function SelectDateCalendar() {
           })}
         </header>
 
-        <div className="grid grid-cols-7 grid-rows-5 gap-x-[2.5rem] gap-y-[3.7rem]">
+        <div className="grid grid-cols-7 grid-rows-5 gap-x-[1.3rem] gap-y-[2.5rem]">
           {ALL_DATE.map(({ id, date, color }) =>
-            date.map((num) => (
-              <p key={id + num} className={`w-[2.9rem] h-[1.8rem] font-body5_m_14 ${color} text-center`}>
-                {num}
-              </p>
-            ))
+            date.map((num) => {
+              const isActiveClick = id === "currentDate";
+              const isClickedNum = isActiveClick && selectedDate.includes(num);
+
+              return (
+                // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
+                <p
+                  key={id + num}
+                  className={`flex items-center justify-center px-[1.35rem] py-[1.1rem] rounded-full font-body5_m_14  ${color} ${
+                    isClickedNum && "bg-key"
+                  } `}
+                  onClick={() => isActiveClick && handleClickDate(num)}
+                >
+                  {num}
+                </p>
+              );
+            })
           )}
         </div>
       </article>
