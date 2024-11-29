@@ -1,5 +1,11 @@
 # @setaday/ui
 
+## 1.1.4
+
+### Patch Changes
+
+- cfe5ac1: change import/export structure
+
 ## 1.1.3
 
 ### Patch Changes
