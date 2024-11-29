@@ -11,11 +11,10 @@
     "version-packages": "changeset version",
     "release": "turbo run build && changeset publish",
     "format": "biome format --write .",
-    "lint": "biome lint .",
-    "check": "biome check --apply ."
+    "lint": "biome lint ."
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": "biome check --apply --format"
+    "*.{js,jsx,ts,tsx}": "biome check --no-errors-on-unmatched"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",

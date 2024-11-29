@@ -1,5 +1,20 @@
 # mobile
 
+## 0.1.7
+
+### Patch Changes
+
+- Updated dependencies [0408ee8]
+  - @setaday/ui@1.1.3
+
+## 0.1.6
+
+### Patch Changes
+
+- 58482be: update dependencies
+- Updated dependencies [db7a77b]
+  - @setaday/ui@1.1.2
+
 ## 0.1.5
 
 ### Patch Changes
