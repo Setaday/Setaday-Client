@@ -1,5 +1,5 @@
 import { color, font } from "@setaday/design-token";
-import { PluginAPI } from "tailwindcss/types/config";
+import type { PluginAPI } from "tailwindcss/types/config";
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -15,7 +15,7 @@ module.exports = {
     },
   },
   plugins: [
-    function ({ addUtilities }: PluginAPI) {
+    ({ addUtilities }: PluginAPI) => {
       const newFontUtilities = {
         ".font-head1_b_22": {
           fontSize: font.head1_b_22.fontSize,
