@@ -1,5 +1,12 @@
 # mobile
 
+## 0.1.9
+
+### Patch Changes
+
+- Updated dependencies [d11a536]
+  - @setaday/ui@1.1.5
+
 ## 0.1.8
 
 ### Patch Changes

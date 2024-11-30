@@ -1,5 +1,11 @@
 # @setaday/ui
 
+## 1.1.5
+
+### Patch Changes
+
+- d11a536: extract css bundle for ui components
+
 ## 1.1.4
 
 ### Patch Changes
