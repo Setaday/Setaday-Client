@@ -1,5 +1,12 @@
 # desktop
 
+## 0.1.7
+
+### Patch Changes
+
+- Updated dependencies [cfe5ac1]
+  - @setaday/ui@1.1.4
+
 ## 0.1.6
 
 ### Patch Changes
