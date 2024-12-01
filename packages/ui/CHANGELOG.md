@@ -1,5 +1,11 @@
 # @setaday/ui
 
+## 1.1.7
+
+### Patch Changes
+
+- 1244f25: fix style import error
+
 ## 1.1.6
 
 ### Patch Changes
