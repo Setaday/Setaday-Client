@@ -1,10 +1,9 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap");
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @layer base {
   /* Reset CSS */
@@ -146,10 +145,9 @@
   #root,
   body,
   html {
-    @apply m-0 mx-auto min-h-[100dvh] w-[100vw] max-w-[43rem];
+    @apply flex justify-center my-0 mx-auto min-h-[100dvh] w-[100vw] max-w-[192rem];
     -ms-overflow-style: none;
     scrollbar-width: none;
-    margin: 0;
     padding: 0;
   }
 
