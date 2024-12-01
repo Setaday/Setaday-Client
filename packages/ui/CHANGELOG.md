@@ -1,5 +1,11 @@
 # @setaday/ui
 
+## 1.1.6
+
+### Patch Changes
+
+- 998edb9: fix style injection error
+
 ## 1.1.5
 
 ### Patch Changes
