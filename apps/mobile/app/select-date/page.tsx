@@ -1,6 +1,6 @@
 "use client";
 
-import { TextField } from "../../../../packages/ui/src/TextField";
+import { TextField } from "@setaday/ui";
 import { useState } from "react";
 
 export default function page() {
