@@ -1,9 +1,9 @@
 "use client";
 
-import SelectTimeOptionSelect from "../../components/SelectTimeOptionSelect";
-import { SelectModeType, SelectTimeOptionType } from "./type";
 import { MobileIconDraw, MobileIconDrawChoose, MobileIconErase, MobileIconEraseChoose } from "@setaday/icon";
 import { useState } from "react";
+import SelectTimeOptionSelect from "../../components/SelectTimeOptionSelect";
+import type { SelectModeType, SelectTimeOptionType } from "./type";
 
 export default function Page() {
   const [selectTimeOption, setSelectTimeOption] = useState<SelectTimeOptionType>("myTime");
@@ -38,10 +38,10 @@ export default function Page() {
           <SelectTimeOptionSelect selectTimeOption={selectTimeOption} handleSelectOption={handleSelectOption} />
           {selectTimeOption === "myTime" && (
             <div className="flex h-[3.4rem] items-center gap-[0.6rem]">
-              <button onClick={handleClickWriteButton}>
+              <button type="button" onClick={handleClickWriteButton}>
                 {selectMode === "write" ? <MobileIconDrawChoose /> : <MobileIconDraw />}
               </button>
-              <button onClick={handleClickEraseButton}>
+              <button type="button" onClick={handleClickEraseButton}>
                 {selectMode === "erase" ? <MobileIconEraseChoose /> : <MobileIconErase />}
               </button>
             </div>

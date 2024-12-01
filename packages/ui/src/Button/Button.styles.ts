@@ -1,6 +1,6 @@
 import { cva } from "class-variance-authority";
 
-export const buttonVariants = cva(`text-white rounded-[0.8rem]`, {
+export const buttonVariants = cva("text-white rounded-[0.8rem]", {
   variants: {
     color: {
       default: "bg-key",
@@ -15,8 +15,8 @@ export const buttonVariants = cva(`text-white rounded-[0.8rem]`, {
       mobile_donate: "w-[20.2rem] h-[3.9rem]",
     },
     font: {
-      default: "text-title1_sb_16",
-      mobile_donate: "text-body9_sb_14",
+      default: "font-title1_sb_16",
+      mobile_donate: "font-body9_sb_14",
     },
     disabled: {
       true: "cursor-not-allowed",
