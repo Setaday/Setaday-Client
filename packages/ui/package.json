@@ -5,13 +5,13 @@
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "exports": {
     ".": "./dist/index.js",
     "./styles": "./dist/styles.css"
   },
-  "files": [
-    "dist"
-  ],
   "scripts": {
     "test": "vitest",
     "clean": "rm -rf dist",
