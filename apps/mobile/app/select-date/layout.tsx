@@ -6,9 +6,9 @@ export default function layout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
+    <section>
       <SelectDateHeader />
-      <div className="p-[2rem]">{children}</div>
-    </>
+      <div className="px-[2rem] py-[3rem]">{children}</div>
+    </section>
   );
 }
