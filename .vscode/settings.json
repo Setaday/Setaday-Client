@@ -5,6 +5,7 @@
     }
   ],
   "editor.codeActionsOnSave": {
+    "quickfix.biome": "explicit",
     "source.fixAll": "never",
     // stylelint 자동 수정
     "source.fixAll.stylelint": "explicit",
@@ -15,5 +16,11 @@
     "source.organizeImports": "explicit"
   },
 
-  "stylelint.validate": ["css", "scss", "postcss", "typescript", "typescriptreact"]
+  "stylelint.validate": [
+    "css",
+    "scss",
+    "postcss",
+    "typescript",
+    "typescriptreact"
+  ]
 }
