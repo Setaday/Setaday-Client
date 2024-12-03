@@ -121,7 +121,7 @@ function SelectDateCalendar() {
   };
 
   return (
-    <article className="flex flex-col">
+    <article className="flex flex-col mt-[5.6rem]">
       <header className="flex items-center justify-center mb-[2.2rem]">
         <button type="button" onClick={() => handleClickArrow("left")}>
           <MobileIconArrowLeftGray />
