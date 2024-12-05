@@ -9,12 +9,23 @@ function SelectDateCalendar() {
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   const [selectedDate, setSelectedDate] = useState<
     Array<{
+      startYear: number;
       startMonth: number;
       startDate: number;
+      endYear: number;
       endMonth: number;
       endDate: number;
     }>
-  >([{ startMonth: 0, startDate: 0, endMonth: 0, endDate: 0 }]);
+  >([
+    {
+      startYear: 0,
+      startMonth: 0,
+      startDate: 0,
+      endYear: 0,
+      endMonth: 0,
+      endDate: 0,
+    },
+  ]);
 
   const DAY = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
   const ALL_DATE = getCalendarDate({ year, month });
@@ -48,6 +59,8 @@ function SelectDateCalendar() {
     }
   };
 
+  console.log(selectedDate);
+
   const handleClickArrow = (arrow: string) => {
     const isLeft = arrow === "left";
 
@@ -69,9 +82,11 @@ function SelectDateCalendar() {
   };
 
   const handleClickDate = ({
+    clickedYear,
     clickedMonth,
     date,
   }: {
+    clickedYear: number;
     clickedMonth: number;
     date: number;
   }) => {
@@ -85,13 +100,17 @@ function SelectDateCalendar() {
     if (idxOfDate > -1) {
       const newDate = selectedDate.map((savedDate) => {
         // startDate가 date와 같고 startMonth가 clickedMonth와 같으면 startDate와 startMonth만 초기화
-        if (savedDate.startDate === date && savedDate.startMonth === clickedMonth) {
-          return { ...savedDate, startDate: 0, startMonth: 0 };
+        if (
+          savedDate.startDate === date &&
+          savedDate.startMonth === clickedMonth &&
+          savedDate.startYear === clickedYear
+        ) {
+          return { ...savedDate, startDate: 0, startMonth: 0, startYear: 0 };
         }
 
         // endDate가 date와 같고 endMonth가 clickedMonth와 같으면 endDate와 endMonth만 초기화
-        if (savedDate.endDate === date && savedDate.endMonth === clickedMonth) {
-          return { ...savedDate, endDate: 0, endMonth: 0 };
+        if (savedDate.endDate === date && savedDate.endMonth === clickedMonth && savedDate.endYear === clickedYear) {
+          return { ...savedDate, endDate: 0, endMonth: 0, endYear: 0 };
         }
 
         // 조건에 맞지 않으면 그대로 반환
@@ -102,20 +121,58 @@ function SelectDateCalendar() {
       const lastDate = selectedDate[selectedDate.length - 1];
 
       if ((lastDate && lastDate.startDate === 0 && lastDate.endDate === 0) || selectedDate.length === 0) {
-        setSelectedDate([{ startMonth: month, startDate: date, endMonth: 0, endDate: 0 }]);
-      } else if (lastDate && lastDate.startDate !== 0 && lastDate.endDate === 0) {
-        setSelectedDate((prev) => [
-          // 이전 값을 유지한 채 마지막 요소만 변경
-          ...prev.slice(0, -1),
+        setSelectedDate([
           {
-            startMonth: lastDate.startMonth,
-            startDate: lastDate.startDate,
-            endMonth: clickedMonth,
-            endDate: date,
+            startYear: clickedYear,
+            startMonth: month,
+            startDate: date,
+            endYear: 0,
+            endMonth: 0,
+            endDate: 0,
           },
         ]);
+      } else if (lastDate && lastDate.startDate !== 0 && lastDate.endDate === 0) {
+        const savedDate = new Date(lastDate.startYear, lastDate.startMonth - 1, lastDate.startDate);
+        const newDate = new Date(clickedYear, clickedMonth - 1, date);
+
+        // 저장된 날짜가 새롭게 클릭된 날짜보다 이전 날짜인 경우 시작 날짜에 저장, 그렇지 않은 경우 끝나는 날짜에 저장
+        savedDate < newDate
+          ? setSelectedDate((prev) => [
+              // 이전 값을 유지한 채 마지막 요소만 변경
+              ...prev.slice(0, -1),
+              {
+                startYear: lastDate.startYear,
+                startMonth: lastDate.startMonth,
+                startDate: lastDate.startDate,
+                endYear: clickedYear,
+                endMonth: clickedMonth,
+                endDate: date,
+              },
+            ])
+          : setSelectedDate((prev) => [
+              // 이전 값을 유지한 채 마지막 요소만 변경
+              ...prev.slice(0, -1),
+              {
+                startYear: clickedYear,
+                startMonth: clickedMonth,
+                startDate: date,
+                endYear: lastDate.endYear,
+                endMonth: lastDate.endMonth,
+                endDate: lastDate.endDate,
+              },
+            ]);
       } else if (selectedDate.length > 0) {
-        setSelectedDate((prev) => [...prev, { startMonth: month, startDate: date, endMonth: 0, endDate: 0 }]);
+        setSelectedDate((prev) => [
+          ...prev,
+          {
+            startYear: clickedYear,
+            startMonth: clickedMonth,
+            startDate: date,
+            endYear: 0,
+            endMonth: 0,
+            endDate: 0,
+          },
+        ]);
       }
     }
   };
@@ -132,8 +189,8 @@ function SelectDateCalendar() {
         </button>
       </header>
 
-      <article className="flex flex-col gap-[2rem] px-[1rem]">
-        <header className="grid grid-cols-7 gap-x-[1.3rem]">
+      <article className="flex flex-col gap-[2rem]">
+        <header className="grid grid-cols-7 gap-x-[1.3rem] px-[0.65rem]">
           {DAY.map((day) => {
             return (
               <h2 key={day} className="w-[2.9rem] font-body6_m_12 text-gray-2 text-center">
@@ -143,29 +200,55 @@ function SelectDateCalendar() {
           })}
         </header>
 
-        <div className="grid grid-cols-7 grid-rows-5 gap-x-[1.3rem] gap-y-[2.5rem]">
+        <div className="grid grid-cols-7 grid-rows-5 gap-y-[2.5rem]">
           {ALL_DATE.map(({ id, date, color }) =>
-            date.map((num) => {
+            date.map((curDate) => {
               const isActiveClick = id === "currentDate";
-              const idxOfDate = selectedDate.findIndex(
+              const idxOfStartDate = selectedDate.findIndex(
                 (savedDate) =>
-                  (savedDate.startDate === num && savedDate.startMonth === month) ||
-                  (savedDate.endDate === num && savedDate.endMonth === month)
+                  savedDate.startDate === curDate && savedDate.startMonth === month && savedDate.startYear === year
               );
 
-              const isClickedNum = isActiveClick && idxOfDate > -1;
+              const idxOfEndDate = selectedDate.findIndex(
+                (savedDate) =>
+                  savedDate.endDate === curDate && savedDate.endMonth === month && savedDate.endYear === year
+              );
+
+              // 각 날짜가 start인지 end인지 체크
+              const isStartDate = idxOfStartDate > -1;
+              const isEndDate = idxOfEndDate > -1;
+
+              const isClickedNum = isActiveClick && (isStartDate || isEndDate);
 
               return (
                 // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
-                <p
-                  key={id + num}
-                  className={`flex items-center justify-center px-[1.35rem] py-[1.1rem] rounded-full font-body5_m_14  ${color} ${
-                    isClickedNum && "bg-key"
-                  } `}
-                  onClick={() => isActiveClick && handleClickDate({ clickedMonth: month, date: num })}
+                <div
+                  key={id + curDate}
+                  className="flex items-center justify-center relative"
+                  onClick={() =>
+                    isActiveClick &&
+                    handleClickDate({
+                      clickedYear: year,
+                      clickedMonth: month,
+                      date: curDate,
+                    })
+                  }
                 >
-                  {num}
-                </p>
+                  {isClickedNum && (
+                    <span
+                      className={`absolute top-0 ${isStartDate ? "right-0" : "left-0"} ${
+                        isClickedNum ? "w-[2.45rem]" : "w-[4.9rem]"
+                      }  h-[3.6rem] bg-sub-1`}
+                    />
+                  )}
+                  <p
+                    className={`flex items-center justify-center w-[3.6rem] py-[1.1rem] z-10 rounded-full font-body5_m_14  ${color} ${
+                      isClickedNum && "bg-key"
+                    } `}
+                  >
+                    {curDate}
+                  </p>
+                </div>
               );
             })
           )}
