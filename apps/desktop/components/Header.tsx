@@ -15,7 +15,9 @@ function Header({ state }: headerProps) {
   const onClickTeam = () => {};
 
   return (
-    <header className="flex justify-between items-center w-full h-[8rem] gap-x-[99.3rem]">
+    <header
+      className={`flex justify-between items-center w-full h-[8rem] ${state === "select-date" ? "gap-x-[99.3rem]" : "gap-x-[92.9rem]"}`}
+    >
       <Link href="/">
         <DesktopLogo />
       </Link>
