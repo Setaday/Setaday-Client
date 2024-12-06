@@ -16,16 +16,8 @@ function SelectDateCalendar() {
       endMonth: number;
       endDate: number;
     }>
-  >([
-    {
-      startYear: 0,
-      startMonth: 0,
-      startDate: 0,
-      endYear: 0,
-      endMonth: 0,
-      endDate: 0,
-    },
-  ]);
+  >([]);
+  const [isRightSelection, setIsRightSelction] = useState(false);
 
   const DAY = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
   const ALL_DATE = getCalendarDate({ year, month });
@@ -59,7 +51,40 @@ function SelectDateCalendar() {
     }
   };
 
-  console.log(selectedDate);
+  const sortDate = ({
+    savedDate,
+    newDate,
+    clickedYear,
+    clickedMonth,
+    clickedDate,
+    year,
+    month,
+    date,
+  }: {
+    savedDate: Date;
+    newDate: Date;
+    clickedYear: number;
+    clickedMonth: number;
+    clickedDate: number;
+    year: number;
+    month: number;
+    date: number;
+  }) => {
+    // 저장된 날짜가 선택된 날짜보다 이른 경우
+    const isSavedDateEarlier = savedDate < newDate;
+    const startYear = isSavedDateEarlier ? year : clickedYear;
+    const startMonth = isSavedDateEarlier ? month : clickedMonth;
+    const startDate = isSavedDateEarlier ? date : clickedDate;
+    const endYear = isSavedDateEarlier ? clickedYear : year;
+    const endMonth = isSavedDateEarlier ? clickedMonth : month;
+    const endDate = isSavedDateEarlier ? clickedDate : date;
+
+    setSelectedDate((prev) => [
+      // 이전 값을 유지한 채 마지막 요소만 변경
+      ...prev.slice(0, -1),
+      { startYear, startMonth, startDate, endYear, endMonth, endDate },
+    ]);
+  };
 
   const handleClickArrow = (arrow: string) => {
     const isLeft = arrow === "left";
@@ -84,90 +109,110 @@ function SelectDateCalendar() {
   const handleClickDate = ({
     clickedYear,
     clickedMonth,
-    date,
+    clickedDate,
   }: {
     clickedYear: number;
     clickedMonth: number;
-    date: number;
+    clickedDate: number;
   }) => {
+    // 해당 날짜가 포함된 selectedDate 객체 찾기
     const idxOfDate = selectedDate.findIndex(
-      (savedDate) =>
-        (savedDate.startDate === date && savedDate.startMonth === clickedMonth) ||
-        (savedDate.endDate === date && savedDate.endMonth === clickedMonth)
+      ({ startDate, startMonth, startYear, endDate, endMonth, endYear }) =>
+        (startDate === clickedDate && startMonth === clickedMonth && startYear === clickedYear) ||
+        (endDate === clickedDate && endMonth === clickedMonth && endYear === clickedYear)
     );
 
     // 이미 선택된 날짜인 경우, -1보다 큰 idx 값 반환
     if (idxOfDate > -1) {
       const newDate = selectedDate.map((savedDate) => {
+        const { startDate, startMonth, startYear, endDate, endMonth, endYear } = savedDate;
+
         // startDate가 date와 같고 startMonth가 clickedMonth와 같으면 startDate와 startMonth만 초기화
-        if (
-          savedDate.startDate === date &&
-          savedDate.startMonth === clickedMonth &&
-          savedDate.startYear === clickedYear
-        ) {
+        if (startDate === clickedDate && startMonth === clickedMonth && startYear === clickedYear) {
           return { ...savedDate, startDate: 0, startMonth: 0, startYear: 0 };
         }
 
         // endDate가 date와 같고 endMonth가 clickedMonth와 같으면 endDate와 endMonth만 초기화
-        if (savedDate.endDate === date && savedDate.endMonth === clickedMonth && savedDate.endYear === clickedYear) {
+        if (endDate === clickedDate && endMonth === clickedMonth && endYear === clickedYear) {
           return { ...savedDate, endDate: 0, endMonth: 0, endYear: 0 };
         }
 
         // 조건에 맞지 않으면 그대로 반환
         return savedDate;
       });
-      setSelectedDate([...newDate]);
+
+      setIsRightSelction(false);
+      // 시작/ 끝 날짜가 모두 선택되지 않은(startDate === 0 && endDate === 0) 경우, 빈 객체로 간주하고 필터링
+      setSelectedDate([
+        ...newDate.filter(
+          ({ startDate, endDate }) =>
+            (startDate > 0 && endDate === 0) || (startDate === 0 && endDate > 0) || (startDate > 0 && endDate > 0)
+        ),
+      ]);
     } else {
       const lastDate = selectedDate[selectedDate.length - 1];
+      const isStartDateNull = lastDate && lastDate.startDate === 0 && lastDate.endDate !== 0;
+      const isEndDateNull = lastDate && lastDate.startDate !== 0 && lastDate.endDate === 0;
 
-      if ((lastDate && lastDate.startDate === 0 && lastDate.endDate === 0) || selectedDate.length === 0) {
+      // 선택된 날짜가 없는 경우
+      if (selectedDate.length === 0) {
         setSelectedDate([
           {
             startYear: clickedYear,
-            startMonth: month,
-            startDate: date,
+            startMonth: clickedMonth,
+            startDate: clickedDate,
             endYear: 0,
             endMonth: 0,
             endDate: 0,
           },
         ]);
-      } else if (lastDate && lastDate.startDate !== 0 && lastDate.endDate === 0) {
-        const savedDate = new Date(lastDate.startYear, lastDate.startMonth - 1, lastDate.startDate);
-        const newDate = new Date(clickedYear, clickedMonth - 1, date);
+      }
 
-        // 저장된 날짜가 새롭게 클릭된 날짜보다 이전 날짜인 경우 시작 날짜에 저장, 그렇지 않은 경우 끝나는 날짜에 저장
-        savedDate < newDate
-          ? setSelectedDate((prev) => [
-              // 이전 값을 유지한 채 마지막 요소만 변경
-              ...prev.slice(0, -1),
-              {
-                startYear: lastDate.startYear,
-                startMonth: lastDate.startMonth,
-                startDate: lastDate.startDate,
-                endYear: clickedYear,
-                endMonth: clickedMonth,
-                endDate: date,
-              },
-            ])
-          : setSelectedDate((prev) => [
-              // 이전 값을 유지한 채 마지막 요소만 변경
-              ...prev.slice(0, -1),
-              {
-                startYear: clickedYear,
-                startMonth: clickedMonth,
-                startDate: date,
-                endYear: lastDate.endYear,
-                endMonth: lastDate.endMonth,
-                endDate: lastDate.endDate,
-              },
-            ]);
-      } else if (selectedDate.length > 0) {
+      // 시작 날짜와 끝나는 날짜 중 하나가 선택되어 있는 경우
+      else if (isStartDateNull || isEndDateNull) {
+        const newDate = new Date(clickedYear, clickedMonth - 1, clickedDate);
+        const { startDate, startMonth, startYear, endDate, endMonth, endYear } = lastDate;
+
+        setIsRightSelction(true);
+        // 시작 날짜만 선택되어 있는 경우
+        if (isEndDateNull) {
+          const savedDate = new Date(startYear, startMonth - 1, startDate);
+          sortDate({
+            savedDate,
+            newDate,
+            clickedYear,
+            clickedMonth,
+            clickedDate,
+            year: startYear,
+            month: startMonth,
+            date: startDate,
+          });
+        }
+
+        // 끝나는 날짜만 선택되어 있는 경우
+        else {
+          const savedDate = new Date(endYear, endMonth - 1, endDate);
+          sortDate({
+            savedDate,
+            newDate,
+            clickedYear,
+            clickedMonth,
+            clickedDate,
+            year: endYear,
+            month: endMonth,
+            date: endDate,
+          });
+        }
+      }
+
+      // 선택된 날짜 묶음이 하나 이상이고, 시작/ 끝 날짜가 모두 선택되어 있는 경우
+      else if (selectedDate.length > 0) {
         setSelectedDate((prev) => [
           ...prev,
           {
             startYear: clickedYear,
             startMonth: clickedMonth,
-            startDate: date,
+            startDate: clickedDate,
             endYear: 0,
             endMonth: 0,
             endDate: 0,
@@ -200,18 +245,17 @@ function SelectDateCalendar() {
           })}
         </header>
 
-        <div className="grid grid-cols-7 grid-rows-5 gap-y-[2.5rem]">
+        <div className="grid grid-cols-7 grid-rows-5 gap-y-[1.8rem]">
           {ALL_DATE.map(({ id, date, color }) =>
             date.map((curDate) => {
               const isActiveClick = id === "currentDate";
               const idxOfStartDate = selectedDate.findIndex(
-                (savedDate) =>
-                  savedDate.startDate === curDate && savedDate.startMonth === month && savedDate.startYear === year
+                ({ startDate, startMonth, startYear }) =>
+                  startDate === curDate && startMonth === month && startYear === year
               );
 
               const idxOfEndDate = selectedDate.findIndex(
-                (savedDate) =>
-                  savedDate.endDate === curDate && savedDate.endMonth === month && savedDate.endYear === year
+                ({ endDate, endMonth, endYear }) => endDate === curDate && endMonth === month && endYear === year
               );
 
               // 각 날짜가 start인지 end인지 체크
@@ -220,6 +264,16 @@ function SelectDateCalendar() {
 
               const isClickedNum = isActiveClick && (isStartDate || isEndDate);
 
+              const isInRange =
+                isActiveClick &&
+                selectedDate.some(({ startYear, startMonth, startDate, endYear, endMonth, endDate }) => {
+                  const start = new Date(startYear, startMonth - 1, startDate);
+                  const end = new Date(endYear, endMonth - 1, endDate);
+                  const current = new Date(year, month - 1, curDate);
+
+                  return start < current && current < end;
+                });
+
               return (
                 // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
                 <div
@@ -227,22 +281,24 @@ function SelectDateCalendar() {
                   className="flex items-center justify-center relative"
                   onClick={() =>
                     isActiveClick &&
+                    !isInRange &&
                     handleClickDate({
                       clickedYear: year,
                       clickedMonth: month,
-                      date: curDate,
+                      clickedDate: curDate,
                     })
                   }
                 >
-                  {isClickedNum && (
+                  {isRightSelection && (isInRange || isClickedNum) && (
                     <span
                       className={`absolute top-0 ${isStartDate ? "right-0" : "left-0"} ${
                         isClickedNum ? "w-[2.45rem]" : "w-[4.9rem]"
                       }  h-[3.6rem] bg-sub-1`}
                     />
                   )}
+
                   <p
-                    className={`flex items-center justify-center w-[3.6rem] py-[1.1rem] z-10 rounded-full font-body5_m_14  ${color} ${
+                    className={`flex items-center justify-center w-[3.6rem] h-[3.6rem] z-10 rounded-full font-body5_m_14  ${color} ${
                       isClickedNum && "bg-key"
                     } `}
                   >
