@@ -1,6 +1,6 @@
-import { textFieldVariants } from "./TextField.styles";
 import { cn } from "@setaday/util";
-import { type InputHTMLAttributes } from "react";
+import type { InputHTMLAttributes } from "react";
+import { textFieldVariants } from "./TextField.styles";
 
 interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   isError?: boolean;
@@ -15,9 +15,9 @@ const TextField = ({ isError = false, value, maxLength, inputSize, ...inputProps
       <input
         {...inputProps}
         value={value}
-        className="bg-gray-1 text-gray-6 text-body7_m_16 w-full focus:outline-none"
+        className="bg-gray-1 text-gray-6 font-body7_m_16 w-full focus:outline-none"
       />
-      <span className="text-gray-2 text-body6_m_12">
+      <span className="text-gray-2 font-body6_m_12">
         {value.length}/{maxLength}
       </span>
     </div>

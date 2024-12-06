@@ -1,5 +1,29 @@
 # @setaday/ui
 
+## 1.1.7
+
+### Patch Changes
+
+- 1244f25: fix style import error
+
+## 1.1.6
+
+### Patch Changes
+
+- 998edb9: fix style injection error
+
+## 1.1.5
+
+### Patch Changes
+
+- d11a536: extract css bundle for ui components
+
+## 1.1.4
+
+### Patch Changes
+
+- cfe5ac1: change import/export structure
+
 ## 1.1.3
 
 ### Patch Changes
