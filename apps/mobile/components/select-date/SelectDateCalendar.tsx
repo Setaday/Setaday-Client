@@ -17,7 +17,6 @@ function SelectDateCalendar() {
       endDate: number;
     }>
   >([]);
-  const [isRightSelection, setIsRightSelction] = useState(false);
 
   const DAY = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
   const ALL_DATE = getCalendarDate({ year, month });
@@ -141,7 +140,6 @@ function SelectDateCalendar() {
         return savedDate;
       });
 
-      setIsRightSelction(false);
       // 시작/ 끝 날짜가 모두 선택되지 않은(startDate === 0 && endDate === 0) 경우, 빈 객체로 간주하고 필터링
       setSelectedDate([
         ...newDate.filter(
@@ -173,7 +171,6 @@ function SelectDateCalendar() {
         const newDate = new Date(clickedYear, clickedMonth - 1, clickedDate);
         const { startDate, startMonth, startYear, endDate, endMonth, endYear } = lastDate;
 
-        setIsRightSelction(true);
         // 시작 날짜만 선택되어 있는 경우
         if (isEndDateNull) {
           const savedDate = new Date(startYear, startMonth - 1, startDate);
@@ -271,8 +268,17 @@ function SelectDateCalendar() {
                   const end = new Date(endYear, endMonth - 1, endDate);
                   const current = new Date(year, month - 1, curDate);
 
-                  return start < current && current < end;
+                  return startYear && endYear ? start < current && current < end : false;
                 });
+
+              const matchedObj = selectedDate.find(
+                ({ startDate, startMonth, startYear, endDate, endMonth, endYear }) =>
+                  (startDate === curDate && startMonth === month && startYear === year) ||
+                  (endDate === curDate && endMonth === month && endYear === year)
+              );
+
+              // 해당 객체의 endDate가 선택되었는지 체크 (!!를 활용하여 해당 값이 반드시 불린 값을 갖도록 정의)
+              const isRightSelection = !!(matchedObj && matchedObj.endDate > 0 && matchedObj.startDate > 0);
 
               return (
                 // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
@@ -289,7 +295,7 @@ function SelectDateCalendar() {
                     })
                   }
                 >
-                  {isRightSelection && (isInRange || isClickedNum) && (
+                  {((isRightSelection && isClickedNum) || isInRange) && (
                     <span
                       className={`absolute top-0 ${isStartDate ? "right-0" : "left-0"} ${
                         isClickedNum ? "w-[2.45rem]" : "w-[4.9rem]"
