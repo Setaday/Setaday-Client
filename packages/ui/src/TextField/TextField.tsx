@@ -41,7 +41,7 @@ const TextField = ({ isError = false, errorMessage, value, maxLength, inputSize,
       </div>
       <div className="h-[1.45rem]">
         {value.length > maxLength || (isError && errorMessage) ? (
-          <span className="text-red-100 font-caption1_m_12">
+          <span className="text-red font-caption1_m_12">
             {value.length > maxLength ? `${maxLength}자가 초과되었어요` : errorMessage}
           </span>
         ) : null}
