@@ -201,8 +201,12 @@ function SelectDateCalendar({
 
       setSelectedDate(updatedDate);
 
+      console.log(updatedDate.length);
+
       if (updatedDate.length === 0) handleDisabledNextBtn(true);
-      if (selectedDateNum.current < 14) handleDisabledNextBtn(false);
+      else {
+        if (selectedDateNum.current < 14) handleDisabledNextBtn(false);
+      }
     } else {
       const lastDate = selectedDate[selectedDate.length - 1];
       const isStartDateNull = lastDate && lastDate.startDate === 0 && lastDate.endDate !== 0;
