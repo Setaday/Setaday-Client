@@ -1,5 +1,11 @@
 # @setaday/design-token
 
+## 2.1.0
+
+### Minor Changes
+
+- 4574bd0: add red color token
+
 ## 2.0.0
 
 ### Major Changes
