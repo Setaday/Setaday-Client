@@ -2,7 +2,7 @@
 
 import { MobileIconArrowLeftGray, MobileIconArrowRightGray } from "@setaday/icon";
 import { useRef, useState } from "react";
-import { getCalendarDate } from "../../constants/getCaledarDate";
+import { getCalendarDate } from "../../constants/getCalendarDate";
 
 function SelectDateCalendar({
   handleDisabledNextBtn,
