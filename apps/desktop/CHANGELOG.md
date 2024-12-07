@@ -1,5 +1,12 @@
 # desktop
 
+## 0.1.11
+
+### Patch Changes
+
+- Updated dependencies [e3e1e14]
+  - @setaday/ui@1.2.0
+
 ## 0.1.10
 
 ### Patch Changes

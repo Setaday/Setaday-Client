@@ -1,5 +1,11 @@
 # @setaday/ui
 
+## 1.2.0
+
+### Minor Changes
+
+- e3e1e14: Add maxlength error handling logic in TextField
+
 ## 1.1.7
 
 ### Patch Changes
