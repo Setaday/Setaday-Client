@@ -201,8 +201,6 @@ function SelectDateCalendar({
 
       setSelectedDate(updatedDate);
 
-      console.log(updatedDate.length);
-
       if (updatedDate.length === 0) handleDisabledNextBtn(true);
       else {
         if (selectedDateNum.current < 14) handleDisabledNextBtn(false);
