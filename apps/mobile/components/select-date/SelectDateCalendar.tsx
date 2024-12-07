@@ -1,10 +1,14 @@
 "use client";
 
 import { MobileIconArrowLeftGray, MobileIconArrowRightGray } from "@setaday/icon";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { getCalendarDate } from "../../constants/getCaledarDate";
 
-function SelectDateCalendar() {
+function SelectDateCalendar({
+  handleDisabledNextBtn,
+}: {
+  handleDisabledNextBtn: (isDisabled: boolean) => void;
+}) {
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   const [selectedDate, setSelectedDate] = useState<
@@ -17,6 +21,7 @@ function SelectDateCalendar() {
       endDate: number;
     }>
   >([]);
+  const selectedDateNum = useRef(0);
 
   const DAY = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
   const ALL_DATE = getCalendarDate({ year, month });
@@ -48,6 +53,30 @@ function SelectDateCalendar() {
       case 12:
         return "December";
     }
+  };
+
+  const calculateSelectedDate = ({
+    startYear,
+    startMonth,
+    startDate,
+    endYear,
+    endMonth,
+    endDate,
+  }: {
+    startYear: number;
+    startMonth: number;
+    startDate: number;
+    endYear: number;
+    endMonth: number;
+    endDate: number;
+  }) => {
+    const start = new Date(startYear, startMonth - 1, startDate);
+    const end = new Date(endYear, endMonth - 1, endDate);
+
+    const diffTime = end.getTime() - start.getTime();
+    const diffDays = diffTime / (1000 * 60 * 60 * 24) + 1;
+
+    return diffDays;
   };
 
   const sortDate = ({
@@ -83,6 +112,17 @@ function SelectDateCalendar() {
       ...prev.slice(0, -1),
       { startYear, startMonth, startDate, endYear, endMonth, endDate },
     ]);
+
+    const diffDays = calculateSelectedDate({
+      startDate,
+      startMonth,
+      startYear,
+      endDate,
+      endMonth,
+      endYear,
+    });
+
+    selectedDateNum.current += diffDays;
   };
 
   const handleClickArrow = (arrow: string) => {
@@ -120,37 +160,55 @@ function SelectDateCalendar() {
         (startDate === clickedDate && startMonth === clickedMonth && startYear === clickedYear) ||
         (endDate === clickedDate && endMonth === clickedMonth && endYear === clickedYear)
     );
+    let diffDays: number;
 
     // 이미 선택된 날짜인 경우, -1보다 큰 idx 값 반환
     if (idxOfDate > -1) {
       const newDate = selectedDate.map((savedDate) => {
         const { startDate, startMonth, startYear, endDate, endMonth, endYear } = savedDate;
 
-        // startDate가 date와 같고 startMonth가 clickedMonth와 같으면 startDate와 startMonth만 초기화
+        diffDays = calculateSelectedDate({
+          startDate,
+          startMonth,
+          startYear,
+          endDate,
+          endMonth,
+          endYear,
+        });
+
+        // startDate가 clickedDate와 같고 startMonth가 clickedMonth와 같으면 startDate와 startMonth만 초기화
         if (startDate === clickedDate && startMonth === clickedMonth && startYear === clickedYear) {
+          if (savedDate.endDate !== 0) selectedDateNum.current -= diffDays;
           return { ...savedDate, startDate: 0, startMonth: 0, startYear: 0 };
         }
 
-        // endDate가 date와 같고 endMonth가 clickedMonth와 같으면 endDate와 endMonth만 초기화
+        // endDate가 clickedDate와 같고 endMonth가 clickedMonth와 같으면 endDate와 endMonth만 초기화
         if (endDate === clickedDate && endMonth === clickedMonth && endYear === clickedYear) {
+          if (savedDate.startDate !== 0) selectedDateNum.current -= diffDays;
           return { ...savedDate, endDate: 0, endMonth: 0, endYear: 0 };
         }
 
-        // 조건에 맞지 않으면 그대로 반환
         return savedDate;
       });
 
       // 시작/ 끝 날짜가 모두 선택되지 않은(startDate === 0 && endDate === 0) 경우, 빈 객체로 간주하고 필터링
-      setSelectedDate([
+      const updatedDate = [
         ...newDate.filter(
           ({ startDate, endDate }) =>
             (startDate > 0 && endDate === 0) || (startDate === 0 && endDate > 0) || (startDate > 0 && endDate > 0)
         ),
-      ]);
+      ];
+
+      setSelectedDate(updatedDate);
+
+      if (updatedDate.length === 0) handleDisabledNextBtn(true);
+      if (selectedDateNum.current < 14) handleDisabledNextBtn(false);
     } else {
       const lastDate = selectedDate[selectedDate.length - 1];
       const isStartDateNull = lastDate && lastDate.startDate === 0 && lastDate.endDate !== 0;
       const isEndDateNull = lastDate && lastDate.startDate !== 0 && lastDate.endDate === 0;
+
+      handleDisabledNextBtn(false);
 
       // 선택된 날짜가 없는 경우
       if (selectedDate.length === 0) {
@@ -184,6 +242,10 @@ function SelectDateCalendar() {
             month: startMonth,
             date: startDate,
           });
+          if (selectedDateNum.current >= 14) {
+            alert("14일 넘음");
+            handleDisabledNextBtn(true);
+          }
         }
 
         // 끝나는 날짜만 선택되어 있는 경우
@@ -199,6 +261,10 @@ function SelectDateCalendar() {
             month: endMonth,
             date: endDate,
           });
+          if (selectedDateNum.current >= 14) {
+            alert("14일 넘음");
+            handleDisabledNextBtn(true);
+          }
         }
       }
 
