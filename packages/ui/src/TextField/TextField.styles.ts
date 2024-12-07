@@ -19,7 +19,7 @@ export const textFieldVariants = cva(
 export const textCountVariants = cva("", {
   variants: {
     isError: {
-      true: "text-red-100",
+      true: "text-red",
     },
   },
 });
