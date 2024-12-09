@@ -345,9 +345,9 @@ function SelectDateCalendar({
                   )}
 
                   <p
-                    className={`flex items-center justify-center w-[3.6rem] h-[3.6rem] z-10 rounded-full font-body5_m_14  ${color} ${
-                      isClickedNum && "bg-key"
-                    } `}
+                    className={`flex items-center justify-center w-[3.6rem] h-[3.6rem] z-10 rounded-full font-body5_m_14  ${
+                      isClickedNum ? "text-white" : color
+                    } ${isClickedNum && "bg-key"} `}
                   >
                     {curDate}
                   </p>
