@@ -1,5 +1,11 @@
 # @setaday/ui
 
+## 1.2.2
+
+### Patch Changes
+
+- e249990: set mobile default button width to 100%
+
 ## 1.2.1
 
 ### Patch Changes
