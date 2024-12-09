@@ -145,7 +145,7 @@
   #root,
   body,
   html {
-    @apply flex justify-center my-0 mx-auto min-h-[100dvh] w-[100vw] max-w-[192rem];
+    @apply flex justify-center my-0 mx-auto min-h-[100vh] w-[100vw];
     -ms-overflow-style: none;
     scrollbar-width: none;
     padding: 0;

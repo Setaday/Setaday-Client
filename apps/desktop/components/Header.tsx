@@ -4,10 +4,10 @@ import { DesktopIconDonate, DesktopIconSharing, DesktopIconTeam, DesktopLogo } f
 import Link from "next/link";
 
 interface headerProps {
-  state: string;
+  currentPage: "select-date" | "select-time";
 }
 
-function Header({ state }: headerProps) {
+function Header({ currentPage }: headerProps) {
   const onClickDonate = () => {};
 
   const onClickSharing = () => {};
@@ -15,9 +15,7 @@ function Header({ state }: headerProps) {
   const onClickTeam = () => {};
 
   return (
-    <header
-      className={`flex justify-between items-center w-full h-[8rem] ${state === "select-date" ? "gap-x-[99.3rem]" : "gap-x-[92.9rem]"}`}
-    >
+    <header className="flex items-center justify-between h-[8rem]">
       <Link href="/">
         <DesktopLogo />
       </Link>
@@ -28,7 +26,7 @@ function Header({ state }: headerProps) {
         <button type="button">
           <DesktopIconSharing />
         </button>
-        {state === "select-time" && (
+        {currentPage === "select-time" && (
           <button type="button">
             <DesktopIconTeam />
           </button>

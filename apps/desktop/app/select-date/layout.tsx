@@ -6,8 +6,8 @@ export default function layout({
   children: React.ReactNode;
 }>) {
   return (
-    <div>
-      <Header state={"select-date"} />
+    <div className="w-[120rem]">
+      <Header currentPage={"select-date"} />
       <div>{children}</div>
     </div>
   );
