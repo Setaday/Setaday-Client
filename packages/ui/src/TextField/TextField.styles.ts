@@ -5,7 +5,7 @@ export const textFieldVariants = cva(
   {
     variants: {
       isError: {
-        true: "shadow-[inset_0_0_0_1px_red]",
+        true: "shadow-[inset_0_0_0_1px_theme('colors.red')]",
       },
       inputSize: {
         desktop: "w-[33.5rem] h-[5.7rem]",
@@ -19,7 +19,7 @@ export const textFieldVariants = cva(
 export const textCountVariants = cva("", {
   variants: {
     isError: {
-      true: "text-red-100",
+      true: "text-red",
     },
   },
 });
