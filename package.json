@@ -14,7 +14,7 @@
     "lint": "biome lint ."
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": "biome check --write —no-errors-on-unmatched"
+    "*.{js,jsx,ts,tsx}": "biome check --no-errors-on-unmatched"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
