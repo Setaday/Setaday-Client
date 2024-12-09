@@ -2,6 +2,7 @@
 
 import { MobileIconArrowLeftGray, MobileIconArrowRightGray } from "@setaday/icon";
 import { useRef, useState } from "react";
+import { DAY, MONTH_NAMES } from "../../contants/calendarConst";
 import { getCalendarDate } from "../../utils/getCalendarDate";
 
 function SelectDateCalendar({
@@ -23,37 +24,9 @@ function SelectDateCalendar({
   >([]);
   const selectedDateNum = useRef(0);
 
-  const DAY = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
   const ALL_DATE = getCalendarDate({ year, month });
 
-  const changeMonthToEng = (month: number) => {
-    switch (month) {
-      case 1:
-        return "January";
-      case 2:
-        return "February";
-      case 3:
-        return "March";
-      case 4:
-        return "April";
-      case 5:
-        return "May";
-      case 6:
-        return "June";
-      case 7:
-        return "July";
-      case 8:
-        return "August";
-      case 9:
-        return "September";
-      case 10:
-        return "October";
-      case 11:
-        return "November";
-      case 12:
-        return "December";
-    }
-  };
+  const getMonth = (month: number) => MONTH_NAMES[month - 1];
 
   const calculateSelectedDate = ({
     startYear,
@@ -293,7 +266,7 @@ function SelectDateCalendar({
         <button type="button" onClick={() => handleClickArrow("left")}>
           <MobileIconArrowLeftGray />
         </button>
-        <h2 className="font-body1_b_18 px-[1.3rem] w-[12.5rem] text-center">{changeMonthToEng(month)}</h2>
+        <h2 className="font-body1_b_18 px-[1.3rem] w-[12.5rem] text-center">{getMonth(month)}</h2>
         <button type="button" onClick={() => handleClickArrow("right")}>
           <MobileIconArrowRightGray />
         </button>
