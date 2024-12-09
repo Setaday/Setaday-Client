@@ -10,7 +10,7 @@ export const buttonVariants = cva("text-white rounded-[0.8rem]", {
     size: {
       default: "",
       desktop: "w-[22.6rem] h-[5.7rem]",
-      mobile: "w-[33.5rem] h-[5.6rem]",
+      mobile: "w-[100%] h-[5.6rem]",
       desktop_donate: "w-[33.5rem] h-[5.6rem]",
       mobile_donate: "w-[20.2rem] h-[3.9rem]",
     },
