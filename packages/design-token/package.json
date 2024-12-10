@@ -1,7 +1,7 @@
 {
   "name": "@setaday/design-token",
   "description": "Setaday에서 사용되는 design token을 제공해요.",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "main": "./index.ts",
   "types": "./index.ts",
   "license": "MIT",

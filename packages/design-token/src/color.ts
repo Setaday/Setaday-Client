@@ -2,7 +2,7 @@ const color = {
   key: "#4F8FF6",
   white: "#FFFFFF",
   black: "#000000",
-  red: "FF7070",
+  red: "#FF7070",
 
   sub: {
     1: "#ECF4FD",
