@@ -2,7 +2,6 @@
 
 import { MobileIconDonate, MobileIconSharing, MobileIconTeam, MobileLogo } from "@setaday/icon";
 import Link from "next/link";
-import React from "react";
 
 function SelectTimeHeader() {
   const handleClickDonateButton = () => {
@@ -23,13 +22,13 @@ function SelectTimeHeader() {
         <MobileLogo />
       </Link>
       <div className="flex gap-[0.8rem]">
-        <button onClick={handleClickDonateButton}>
+        <button type="button" onClick={handleClickDonateButton}>
           <MobileIconDonate />
         </button>
-        <button onClick={handleClickTeamButton}>
+        <button type="button" onClick={handleClickTeamButton}>
           <MobileIconTeam />
         </button>
-        <button onClick={handleClickSharingButton}>
+        <button type="button" onClick={handleClickSharingButton}>
           <MobileIconSharing />
         </button>
       </div>
