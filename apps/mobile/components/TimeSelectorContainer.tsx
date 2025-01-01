@@ -1,5 +1,6 @@
-import { SelectModeType } from "../app/select-time/type";
-import React, { useState, useCallback, useEffect, useRef } from "react";
+import type React from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import type { SelectModeType } from "../app/select-time/type";
 
 interface TimeSelectorProps {
   date: Date;
@@ -22,7 +23,7 @@ const TimeSelector = ({ date, onChange, selectMode }: TimeSelectorProps) => {
     (index: number) => (el: HTMLDivElement | null) => {
       timeSlotRefs.current[index] = el;
     },
-    [],
+    []
   );
 
   const findTimeSlotIndex = useCallback((touch: Touch) => {
@@ -42,7 +43,7 @@ const TimeSelector = ({ date, onChange, selectMode }: TimeSelectorProps) => {
         e.preventDefault();
       }
     },
-    [isDragging],
+    [isDragging]
   );
 
   const handleTouchStart = (event: React.TouchEvent, index: number) => {
@@ -85,7 +86,7 @@ const TimeSelector = ({ date, onChange, selectMode }: TimeSelectorProps) => {
         onChange?.(newSelectedTimes, date);
       }
     },
-    [isDragging, selectMode, dragStart, selectedTimes, findTimeSlotIndex, onChange, date],
+    [isDragging, selectMode, dragStart, selectedTimes, findTimeSlotIndex, onChange, date]
   );
 
   const handleTouchEnd = useCallback(
@@ -97,7 +98,7 @@ const TimeSelector = ({ date, onChange, selectMode }: TimeSelectorProps) => {
       setIsDragging(false);
       setDragStart(null);
     },
-    [isDragging],
+    [isDragging]
   );
 
   // 컴포넌트가 마운트될 때 이벤트 리스너 설정
@@ -127,9 +128,13 @@ const TimeSelector = ({ date, onChange, selectMode }: TimeSelectorProps) => {
       <div className="flex flex-col">
         {selectedTimes.map((selected, index) => (
           <div
-            key={index}
+            key={`time-${date.toISOString()}-${index}`}
             ref={setTimeSlotRef(index)}
-            className={`h-[3rem] w-[4.7rem] border-b last:border-b-0 ${selectMode !== "default" ? "cursor-pointer" : "cursor-default"} flex touch-none select-none items-center px-2 text-sm transition-colors duration-150 ${selected ? "bg-blue-500" : ""}`}
+            className={`h-[3rem] w-[4.7rem] border-b last:border-b-0 ${
+              selectMode !== "default" ? "cursor-pointer" : "cursor-default"
+            } flex touch-none select-none items-center px-2 text-sm transition-colors duration-150 ${
+              selected ? "bg-blue-500" : ""
+            }`}
             onTouchStart={(e) => handleTouchStart(e, index)}
           />
         ))}
@@ -144,12 +149,12 @@ const TimeSelectorContainer = ({ selectMode }: TimeSelectorContainerProps) => {
 
   const [allSelectedTimes, setAllSelectedTimes] = useState<Record<string, boolean[]>>(
     dates.reduce(
-      (acc, date) => ({
-        ...acc,
-        [date.toISOString()]: new Array(48).fill(false),
-      }),
-      {},
-    ),
+      (acc, date) =>
+        Object.assign(acc, {
+          [date.toISOString()]: new Array(48).fill(false),
+        }),
+      {}
+    )
   );
 
   const handleTimeChange = (newTimes: boolean[], date: Date) => {

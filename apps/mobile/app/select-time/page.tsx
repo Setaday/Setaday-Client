@@ -3,6 +3,7 @@
 import { MobileIconDraw, MobileIconDrawChoose, MobileIconErase, MobileIconEraseChoose } from "@setaday/icon";
 import { useState } from "react";
 import SelectTimeOptionSelect from "../../components/SelectTimeOptionSelect";
+import TimeSelectorContainer from "../../components/TimeSelectorContainer";
 import type { SelectModeType, SelectTimeOptionType } from "./type";
 
 export default function Page() {
@@ -48,6 +49,7 @@ export default function Page() {
           )}
         </div>
       </div>
+      <TimeSelectorContainer selectMode={selectMode} />
     </div>
   );
 }
