@@ -4,6 +4,7 @@ import { MobileIconDraw, MobileIconDrawChoose, MobileIconErase, MobileIconEraseC
 import { useState } from "react";
 import SelectTimeOptionSelect from "../../components/SelectTimeOptionSelect";
 import TimeSelectorContainer from "../../components/TimeSelectorContainer";
+import { Time } from "../../contants/selectDateConst";
 import type { SelectModeType, SelectTimeOptionType } from "./type";
 
 export default function Page() {
@@ -49,7 +50,16 @@ export default function Page() {
           )}
         </div>
       </div>
-      <TimeSelectorContainer selectMode={selectMode} />
+      <div className="flex">
+        <div className="flex flex-col gap-[1.4rem]">
+          {Time.map((time) => (
+            <div key={time}>
+              <span className="font-body6_m_12 text-gray-3">{time}</span>
+            </div>
+          ))}
+        </div>
+        <TimeSelectorContainer selectMode={selectMode} />
+      </div>
     </div>
   );
 }
