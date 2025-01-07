@@ -54,7 +54,7 @@ export default function Page() {
         <div className="flex flex-col gap-[1.4rem]">
           {Time.map((time) => (
             <div key={time}>
-              <span className="font-body6_m_12 text-gray-3">{time}</span>
+              <span className="font-body6_m_12 text-gray-3 leading-[1.6rem]">{time}</span>
             </div>
           ))}
         </div>
