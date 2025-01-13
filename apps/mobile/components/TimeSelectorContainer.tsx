@@ -186,7 +186,10 @@ const TimeSelectorContainer = ({ selectMode }: TimeSelectorContainerProps) => {
     <div ref={containerRef} className="flex touch-none pl-4">
       {dates.map((date) => (
         <div key={date.toISOString()} className="flex flex-col">
-          <div>dkdkdk</div>
+          <div className="flex flex-col items-center gap-2 mb-[1.1rem]">
+            <span className="text-gray-5 font-body1_b_18">4</span>
+            <span className="text-gray-2 font-body6_m_12">MON</span>
+          </div>
           <TimeSelector date={date} onChange={handleTimeChange} selectMode={selectMode} />
         </div>
       ))}
