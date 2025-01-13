@@ -1,5 +1,12 @@
 # @setaday/ui
 
+## 1.2.4
+
+### Patch Changes
+
+- Updated dependencies [0046841]
+  - @setaday/design-token@2.2.0
+
 ## 1.2.3
 
 ### Patch Changes

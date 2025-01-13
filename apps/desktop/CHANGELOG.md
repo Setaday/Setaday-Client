@@ -1,5 +1,13 @@
 # desktop
 
+## 0.1.15
+
+### Patch Changes
+
+- Updated dependencies [0046841]
+  - @setaday/design-token@2.2.0
+  - @setaday/ui@1.2.4
+
 ## 0.1.14
 
 ### Patch Changes
