@@ -339,7 +339,7 @@ function SelectDateCalendar({
                   {((isRightSelection && isClickedNum) || isInRange) && (
                     <span
                       className={`absolute top-0 ${isStartDate ? "right-0" : "left-0"} ${
-                        isClickedNum ? "w-[2.45rem]" : "w-[4.9rem]"
+                        isClickedNum ? "w-[2.45rem]" : "w-[100%]"
                       }  h-[3.6rem] bg-sub-1`}
                     />
                   )}
