@@ -9,15 +9,16 @@ export default function page() {
   const MAX_LENGTH = 16;
 
   const [planName, setPlanName] = useState("");
-  const [isDisabledNextBtn, setIsDisabledNextBtn] = useState(true);
+  const [isDateSelected, setIsDateSelected] = useState(false);
+  const isActiveBtn = planName.length > 0 && isDateSelected;
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
     setPlanName(value);
   };
 
-  const handleDisabledNextBtn = (isDisabled: boolean) => {
-    setIsDisabledNextBtn(isDisabled);
+  const handlSelecteDate = (isSelected: boolean) => {
+    setIsDateSelected(isSelected);
   };
 
   return (
@@ -30,10 +31,10 @@ export default function page() {
           maxLength={MAX_LENGTH}
           onChange={handleChangeInput}
         />
-        <SelectDateCalendar handleDisabledNextBtn={handleDisabledNextBtn} />
+        <SelectDateCalendar handlSelecteDate={handlSelecteDate} />
       </div>
 
-      <Button color={isDisabledNextBtn ? "cancel" : "default"} font="default" size="mobile">
+      <Button color={isActiveBtn ? "default" : "cancel"} font="default" size="mobile">
         다음으로
       </Button>
     </div>

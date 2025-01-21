@@ -6,9 +6,9 @@ import { DAY, MONTH_NAMES } from "../../contants/calendarConst";
 import { getCalendarDate } from "../../utils/getCalendarDate";
 
 function SelectDateCalendar({
-  handleDisabledNextBtn,
+  handlSelecteDate,
 }: {
-  handleDisabledNextBtn: (isDisabled: boolean) => void;
+  handlSelecteDate: (isSelected: boolean) => void;
 }) {
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth() + 1);
@@ -173,17 +173,11 @@ function SelectDateCalendar({
       ];
 
       setSelectedDate(updatedDate);
-
-      if (updatedDate.length === 0) handleDisabledNextBtn(true);
-      else {
-        if (selectedDateNum.current < 14) handleDisabledNextBtn(false);
-      }
+      handlSelecteDate(false);
     } else {
       const lastDate = selectedDate[selectedDate.length - 1];
       const isStartDateNull = lastDate && lastDate.startDate === 0 && lastDate.endDate !== 0;
       const isEndDateNull = lastDate && lastDate.startDate !== 0 && lastDate.endDate === 0;
-
-      handleDisabledNextBtn(false);
 
       // 선택된 날짜가 없는 경우
       if (selectedDate.length === 0) {
@@ -197,6 +191,7 @@ function SelectDateCalendar({
             endDate: 0,
           },
         ]);
+        handlSelecteDate(false);
       }
 
       // 시작 날짜와 끝나는 날짜 중 하나가 선택되어 있는 경우
@@ -217,9 +212,10 @@ function SelectDateCalendar({
             month: startMonth,
             date: startDate,
           });
+          handlSelecteDate(true);
           if (selectedDateNum.current >= 14) {
             alert("14일 넘음");
-            handleDisabledNextBtn(true);
+            handlSelecteDate(false);
           }
         }
 
@@ -236,9 +232,10 @@ function SelectDateCalendar({
             month: endMonth,
             date: endDate,
           });
+          handlSelecteDate(true);
           if (selectedDateNum.current >= 14) {
             alert("14일 넘음");
-            handleDisabledNextBtn(true);
+            handlSelecteDate(false);
           }
         }
       }
@@ -256,6 +253,7 @@ function SelectDateCalendar({
             endDate: 0,
           },
         ]);
+        handlSelecteDate(false);
       }
     }
   };
