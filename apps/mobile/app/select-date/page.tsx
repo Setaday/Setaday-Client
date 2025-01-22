@@ -23,16 +23,15 @@ export default function page() {
 
   return (
     <div className="flex flex-col justify-between h-[calc(100dvh-11.2rem)]">
-      <div>
-        <TextField
-          inputSize="mobile"
-          placeholder={PLACE_HOLDER}
-          value={planName}
-          maxLength={MAX_LENGTH}
-          onChange={handleChangeInput}
-        />
-        <SelectDateCalendar handlSelecteDate={handlSelecteDate} />
-      </div>
+      <TextField
+        inputSize="mobile"
+        placeholder={PLACE_HOLDER}
+        value={planName}
+        maxLength={MAX_LENGTH}
+        onChange={handleChangeInput}
+      />
+
+      <SelectDateCalendar handlSelecteDate={handlSelecteDate} />
 
       <Button color={isActiveBtn ? "default" : "cancel"} font="default" size="mobile">
         다음으로
