@@ -10,7 +10,8 @@ export default function page() {
 
   const [planName, setPlanName] = useState("");
   const [isDateSelected, setIsDateSelected] = useState(false);
-  const isActiveBtn = planName.length > 0 && isDateSelected;
+  const isRightName = planName.length > 0 && planName.length < 17;
+  const isActiveBtn = isRightName && isDateSelected;
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
