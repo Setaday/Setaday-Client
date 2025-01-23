@@ -34,7 +34,7 @@ export default function page() {
 
       <SelectDateCalendar handleSelectDate={handleSelectDate} />
 
-      <Button color={isActiveBtn ? "default" : "disabled"} font="default" size="mobile">
+      <Button color={isActiveBtn ? "default" : "disabled"} font="default" size="mobile" disabled={!isActiveBtn}>
         다음으로
       </Button>
     </div>
