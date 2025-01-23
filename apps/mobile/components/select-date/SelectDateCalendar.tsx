@@ -6,9 +6,9 @@ import { DAY, MONTH_NAMES } from "../../contants/calendarConst";
 import { getCalendarDate } from "../../utils/getCalendarDate";
 
 function SelectDateCalendar({
-  handlSelecteDate,
+  handleSelectDate,
 }: {
-  handlSelecteDate: (isSelected: boolean) => void;
+  handleSelectDate: (isSelected: boolean) => void;
 }) {
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth() + 1);
@@ -173,7 +173,7 @@ function SelectDateCalendar({
       ];
 
       setSelectedDate(updatedDate);
-      handlSelecteDate(false);
+      handleSelectDate(false);
     } else {
       const lastDate = selectedDate[selectedDate.length - 1];
       const isStartDateNull = lastDate && lastDate.startDate === 0 && lastDate.endDate !== 0;
@@ -191,7 +191,7 @@ function SelectDateCalendar({
             endDate: 0,
           },
         ]);
-        handlSelecteDate(false);
+        handleSelectDate(false);
       }
 
       // 시작 날짜와 끝나는 날짜 중 하나가 선택되어 있는 경우
@@ -212,10 +212,10 @@ function SelectDateCalendar({
             month: startMonth,
             date: startDate,
           });
-          handlSelecteDate(true);
+          handleSelectDate(true);
           if (selectedDateNum.current >= 14) {
             alert("14일 넘음");
-            handlSelecteDate(false);
+            handleSelectDate(false);
           }
         }
 
@@ -232,10 +232,10 @@ function SelectDateCalendar({
             month: endMonth,
             date: endDate,
           });
-          handlSelecteDate(true);
+          handleSelectDate(true);
           if (selectedDateNum.current >= 14) {
             alert("14일 넘음");
-            handlSelecteDate(false);
+            handleSelectDate(false);
           }
         }
       }
@@ -253,7 +253,7 @@ function SelectDateCalendar({
             endDate: 0,
           },
         ]);
-        handlSelecteDate(false);
+        handleSelectDate(false);
       }
     }
   };

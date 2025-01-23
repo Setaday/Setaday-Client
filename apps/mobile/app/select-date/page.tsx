@@ -18,7 +18,7 @@ export default function page() {
     setPlanName(value);
   };
 
-  const handlSelecteDate = (isSelected: boolean) => {
+  const handleSelectDate = (isSelected: boolean) => {
     setIsDateSelected(isSelected);
   };
 
@@ -32,7 +32,7 @@ export default function page() {
         onChange={handleChangeInput}
       />
 
-      <SelectDateCalendar handlSelecteDate={handlSelecteDate} />
+      <SelectDateCalendar handleSelectDate={handleSelectDate} />
 
       <Button color={isActiveBtn ? "default" : "disabled"} font="default" size="mobile">
         다음으로
