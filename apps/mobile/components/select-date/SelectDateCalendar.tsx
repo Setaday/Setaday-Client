@@ -214,6 +214,7 @@ function SelectDateCalendar({
           });
           handleSelectDate(true);
           if (selectedDateNum.current >= 14) {
+            // 선택한 날짜가 14일을 넘었을 때 동작하는 플로우 추가 시 삭제 예정
             alert("14일 넘음");
             handleSelectDate(false);
           }
@@ -234,6 +235,7 @@ function SelectDateCalendar({
           });
           handleSelectDate(true);
           if (selectedDateNum.current >= 14) {
+            // 선택한 날짜가 14일을 넘었을 때 동작하는 플로우 추가 시 삭제 예정
             alert("14일 넘음");
             handleSelectDate(false);
           }
