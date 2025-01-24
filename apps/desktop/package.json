@@ -13,8 +13,8 @@
     "@setaday/icon": "workspace:*",
     "@setaday/ui": "workspace:*",
     "next": "15.0.0-rc.0",
-    "react": "19.0.0-rc-f994737d14-20240522",
-    "react-dom": "19.0.0-rc-f994737d14-20240522"
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
   },
   "devDependencies": {
     "@setaday/typescript-config": "workspace:*",
