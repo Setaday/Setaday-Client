@@ -1,5 +1,11 @@
 # @setaday/design-token
 
+## 2.2.0
+
+### Minor Changes
+
+- 0046841: Update gray_2 color scheme
+
 ## 2.1.1
 
 ### Patch Changes

@@ -6,9 +6,9 @@ import { DAY, MONTH_NAMES } from "../../contants/calendarConst";
 import { getCalendarDate } from "../../utils/getCalendarDate";
 
 function SelectDateCalendar({
-  handleDisabledNextBtn,
+  handleSelectDate,
 }: {
-  handleDisabledNextBtn: (isDisabled: boolean) => void;
+  handleSelectDate: (isSelected: boolean) => void;
 }) {
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth() + 1);
@@ -173,17 +173,11 @@ function SelectDateCalendar({
       ];
 
       setSelectedDate(updatedDate);
-
-      if (updatedDate.length === 0) handleDisabledNextBtn(true);
-      else {
-        if (selectedDateNum.current < 14) handleDisabledNextBtn(false);
-      }
+      handleSelectDate(false);
     } else {
       const lastDate = selectedDate[selectedDate.length - 1];
       const isStartDateNull = lastDate && lastDate.startDate === 0 && lastDate.endDate !== 0;
       const isEndDateNull = lastDate && lastDate.startDate !== 0 && lastDate.endDate === 0;
-
-      handleDisabledNextBtn(false);
 
       // 선택된 날짜가 없는 경우
       if (selectedDate.length === 0) {
@@ -197,6 +191,7 @@ function SelectDateCalendar({
             endDate: 0,
           },
         ]);
+        handleSelectDate(false);
       }
 
       // 시작 날짜와 끝나는 날짜 중 하나가 선택되어 있는 경우
@@ -217,9 +212,11 @@ function SelectDateCalendar({
             month: startMonth,
             date: startDate,
           });
+          handleSelectDate(true);
           if (selectedDateNum.current >= 14) {
+            // 선택한 날짜가 14일을 넘었을 때 동작하는 플로우 추가 시 삭제 예정
             alert("14일 넘음");
-            handleDisabledNextBtn(true);
+            handleSelectDate(false);
           }
         }
 
@@ -236,9 +233,11 @@ function SelectDateCalendar({
             month: endMonth,
             date: endDate,
           });
+          handleSelectDate(true);
           if (selectedDateNum.current >= 14) {
+            // 선택한 날짜가 14일을 넘었을 때 동작하는 플로우 추가 시 삭제 예정
             alert("14일 넘음");
-            handleDisabledNextBtn(true);
+            handleSelectDate(false);
           }
         }
       }
@@ -256,12 +255,13 @@ function SelectDateCalendar({
             endDate: 0,
           },
         ]);
+        handleSelectDate(false);
       }
     }
   };
 
   return (
-    <article className="flex flex-col mt-[5.6rem]">
+    <article className="flex flex-col h-[38.3rem] mb-[2rem]">
       <header className="flex items-center justify-center mb-[2.2rem]">
         <button type="button" onClick={() => handleClickArrow("left")}>
           <MobileIconArrowLeftGray />
@@ -339,7 +339,7 @@ function SelectDateCalendar({
                   {((isRightSelection && isClickedNum) || isInRange) && (
                     <span
                       className={`absolute top-0 ${isStartDate ? "right-0" : "left-0"} ${
-                        isClickedNum ? "w-[2.45rem]" : "w-[4.9rem]"
+                        isClickedNum ? "w-[2.45rem]" : "w-[100%]"
                       }  h-[3.6rem] bg-sub-1`}
                     />
                   )}
