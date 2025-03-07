@@ -1,28 +1,22 @@
 "use client";
 
 import { MobileIconArrowLeftGray, MobileIconArrowRightGray } from "@setaday/icon";
-import { useRef, useState } from "react";
+import { type MutableRefObject, type SetStateAction, useState } from "react";
 import { DAY, MONTH_NAMES } from "../../contants/calendarConst";
+import type { SelectedDateType } from "../../type/selectedDateType";
 import { getCalendarDate } from "../../utils/getCalendarDate";
 
 function SelectDateCalendar({
+  selectedDateNum,
+  selectedDate,
   handleSelectDate,
 }: {
-  handleSelectDate: (isSelected: boolean) => void;
+  selectedDateNum: MutableRefObject<number>;
+  selectedDate: Array<SelectedDateType>;
+  handleSelectDate: (newDate: SetStateAction<Array<SelectedDateType>>) => void;
 }) {
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth() + 1);
-  const [selectedDate, setSelectedDate] = useState<
-    Array<{
-      startYear: number;
-      startMonth: number;
-      startDate: number;
-      endYear: number;
-      endMonth: number;
-      endDate: number;
-    }>
-  >([]);
-  const selectedDateNum = useRef(0);
 
   const ALL_DATE = getCalendarDate({ year, month });
 
@@ -35,14 +29,7 @@ function SelectDateCalendar({
     endYear,
     endMonth,
     endDate,
-  }: {
-    startYear: number;
-    startMonth: number;
-    startDate: number;
-    endYear: number;
-    endMonth: number;
-    endDate: number;
-  }) => {
+  }: SelectedDateType) => {
     const start = new Date(startYear, startMonth - 1, startDate);
     const end = new Date(endYear, endMonth - 1, endDate);
 
@@ -80,7 +67,7 @@ function SelectDateCalendar({
     const endMonth = isSavedDateEarlier ? clickedMonth : month;
     const endDate = isSavedDateEarlier ? clickedDate : date;
 
-    setSelectedDate((prev) => [
+    handleSelectDate((prev) => [
       // 이전 값을 유지한 채 마지막 요소만 변경
       ...prev.slice(0, -1),
       { startYear, startMonth, startDate, endYear, endMonth, endDate },
@@ -172,8 +159,7 @@ function SelectDateCalendar({
         ),
       ];
 
-      setSelectedDate(updatedDate);
-      handleSelectDate(false);
+      handleSelectDate(updatedDate);
     } else {
       const lastDate = selectedDate[selectedDate.length - 1];
       const isStartDateNull = lastDate && lastDate.startDate === 0 && lastDate.endDate !== 0;
@@ -181,7 +167,7 @@ function SelectDateCalendar({
 
       // 선택된 날짜가 없는 경우
       if (selectedDate.length === 0) {
-        setSelectedDate([
+        handleSelectDate([
           {
             startYear: clickedYear,
             startMonth: clickedMonth,
@@ -191,7 +177,6 @@ function SelectDateCalendar({
             endDate: 0,
           },
         ]);
-        handleSelectDate(false);
       }
 
       // 시작 날짜와 끝나는 날짜 중 하나가 선택되어 있는 경우
@@ -212,11 +197,9 @@ function SelectDateCalendar({
             month: startMonth,
             date: startDate,
           });
-          handleSelectDate(true);
           if (selectedDateNum.current >= 14) {
             // 선택한 날짜가 14일을 넘었을 때 동작하는 플로우 추가 시 삭제 예정
             alert("14일 넘음");
-            handleSelectDate(false);
           }
         }
 
@@ -233,18 +216,16 @@ function SelectDateCalendar({
             month: endMonth,
             date: endDate,
           });
-          handleSelectDate(true);
           if (selectedDateNum.current >= 14) {
             // 선택한 날짜가 14일을 넘었을 때 동작하는 플로우 추가 시 삭제 예정
             alert("14일 넘음");
-            handleSelectDate(false);
           }
         }
       }
 
       // 선택된 날짜 묶음이 하나 이상이고, 시작/ 끝 날짜가 모두 선택되어 있는 경우
       else if (selectedDate.length > 0) {
-        setSelectedDate((prev) => [
+        handleSelectDate((prev) => [
           ...prev,
           {
             startYear: clickedYear,
@@ -255,7 +236,6 @@ function SelectDateCalendar({
             endDate: 0,
           },
         ]);
-        handleSelectDate(false);
       }
     }
   };

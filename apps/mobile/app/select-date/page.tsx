@@ -2,9 +2,10 @@
 
 import { Button, TextField } from "@setaday/ui";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { type SetStateAction, useRef, useState } from "react";
 import SelectDateCalendar from "../../components/select-date/SelectDateCalendar";
 import SelectTimeRange from "../../components/select-date/SelectTimeRange";
+import type { SelectedDateType } from "../../type/selectedDateType";
 
 export default function page() {
   const PLACE_HOLDER = "약속 이름을 작성해주세요";
@@ -17,18 +18,25 @@ export default function page() {
   const BTN_CONTENT = isSelectTimeStep ? "약속 생성하기" : "다음으로";
 
   const [planName, setPlanName] = useState("");
-  const [isDateSelected, setIsDateSelected] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<Array<SelectedDateType>>([]);
   const [isTimeSelected, setIsTimeSelected] = useState(false);
+  const selectedDateNum = useRef(0);
+
   const isRightName = planName.length > 0 && planName.length < 17;
-  const isActiveBtn = isSelectTimeStep ? isTimeSelected : isRightName && isDateSelected;
+  const isRightDate =
+    selectedDate.length &&
+    selectedDate.every(({ startYear, endYear }) => startYear > 0 && endYear > 0) &&
+    selectedDateNum.current <= 14;
+
+  const isActiveBtn = isSelectTimeStep ? isTimeSelected : isRightName && isRightDate;
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
     setPlanName(value);
   };
 
-  const handleSelectDate = (isSelected: boolean) => {
-    setIsDateSelected(isSelected);
+  const handleSelectDate = (newDate: SetStateAction<Array<SelectedDateType>>) => {
+    setSelectedDate(newDate);
   };
 
   const handleSelectTime = (isSelected: boolean) => {
@@ -54,7 +62,11 @@ export default function page() {
             onChange={handleChangeInput}
           />
 
-          <SelectDateCalendar handleSelectDate={handleSelectDate} />
+          <SelectDateCalendar
+            selectedDateNum={selectedDateNum}
+            selectedDate={selectedDate}
+            handleSelectDate={handleSelectDate}
+          />
         </>
       )}
 
