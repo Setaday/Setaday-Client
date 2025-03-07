@@ -10,6 +10,7 @@ import type { SelectedDateType } from "../../type/selectedDateType";
 export default function page() {
   const PLACE_HOLDER = "약속 이름을 작성해주세요";
   const MAX_LENGTH = 16;
+  const MAX_DATE = 14;
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -22,11 +23,11 @@ export default function page() {
   const [isTimeSelected, setIsTimeSelected] = useState(false);
   const selectedDateNum = useRef(0);
 
-  const isRightName = planName.length > 0 && planName.length < 17;
+  const isRightName = planName.length && planName.length <= MAX_LENGTH;
   const isRightDate =
     selectedDate.length &&
-    selectedDate.every(({ startYear, endYear }) => startYear > 0 && endYear > 0) &&
-    selectedDateNum.current <= 14;
+    selectedDate.every(({ startYear, endYear }) => startYear && endYear) &&
+    selectedDateNum.current <= MAX_DATE;
 
   const isActiveBtn = isSelectTimeStep ? isTimeSelected : isRightName && isRightDate;
 
