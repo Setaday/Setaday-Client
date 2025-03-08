@@ -12,12 +12,18 @@ function SelectTimeRange({
   selectedTime: Array<SelectedTimeType>;
   handleSelectTime: (newTime: SetStateAction<Array<SelectedTimeType>>) => void;
 }) {
-  const [isStartClicked, setIsStartClicked] = useState(false);
-  const [isEndClicked, setIsEndClicked] = useState(false);
+  const [isDropdownClicked, setIsDropdownClicked] = useState({
+    isStartClicked: false,
+    isEndClicked: false,
+  });
+  const { isStartClicked, isEndClicked } = isDropdownClicked;
   const slicedTimeBlocks = useRef(TIME_BLOCKS);
 
   const handleClickDropdown = (isStartTime: boolean) => {
-    isStartTime ? setIsStartClicked((prev) => !prev) : setIsEndClicked((prev) => !prev);
+    setIsDropdownClicked(({ isStartClicked, isEndClicked }) => ({
+      isStartClicked: isStartTime ? !isStartClicked : isStartClicked,
+      isEndClicked: isStartTime ? isEndClicked : !isEndClicked,
+    }));
   };
 
   const handleClickTime = (e: React.MouseEvent<HTMLLIElement, MouseEvent>, isStartTime: boolean, idx: number) => {
