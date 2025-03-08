@@ -43,9 +43,9 @@ function SelectTimeRange({
         {TIME_RANGE_PLACEHOLDER.map((text) => {
           const isStartTime = text === "시작 시간";
           const isSelectClicked = isStartTime ? isStartClicked : isEndClicked;
+          const validatedTimeblocks = isStartTime ? TIME_BLOCKS : slicedTimeBlocks.current;
           const startTime = selectedTime[0]?.startTime || text;
           const endTime = selectedTime[0]?.endTime || text;
-          const validatedTimeblocks = isStartTime ? TIME_BLOCKS : slicedTimeBlocks.current;
 
           return (
             <React.Fragment key={text}>
@@ -67,13 +67,14 @@ function SelectTimeRange({
                   <ul className="absolute top-full w-full max-h-[23rem] mt-[0.6rem] px-[0.8rem] overflow-x-hidden overflow-y-auto whitespace-nowrap text-center bg-gray-1 rounded-[0.4rem]">
                     {validatedTimeblocks.map((time, idx) => {
                       const isMiddleItem = idx > 0 && idx < slicedTimeBlocks.current.length;
+                      const selectedList = isStartTime ? startTime : endTime;
                       return (
                         // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
                         <li
                           key={time}
-                          className={`py-[1.2rem] font-body7_m_16 text-gray-4 ${
-                            isMiddleItem && "border-t-[0.1rem] border-t-gray-1.3"
-                          }`}
+                          className={`py-[1.2rem] font-body7_m_16 ${
+                            selectedList === time ? "text-key" : "text-gray-4"
+                          }  ${isMiddleItem && "border-t-[0.1rem] border-t-gray-1.3"}`}
                           onClick={(e) => handleClickTime(e, isStartTime, idx)}
                         >
                           {time}
