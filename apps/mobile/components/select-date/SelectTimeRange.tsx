@@ -1,7 +1,7 @@
 "use client";
 
 import { MobileIconArrowDown, MobileIconArrowUp } from "@setaday/icon";
-import React, { type SetStateAction, useState } from "react";
+import React, { type SetStateAction, useRef, useState } from "react";
 import { TIME_BLOCKS, TIME_RANGE_PLACEHOLDER } from "../../contants/timeRange";
 import type { SelectedTimeType } from "../../type/selectedDateType";
 
@@ -14,18 +14,18 @@ function SelectTimeRange({
 }) {
   const [isStartClicked, setIsStartClicked] = useState(false);
   const [isEndClicked, setIsEndClicked] = useState(false);
+  const slicedTimeBlocks = useRef(TIME_BLOCKS);
 
   const handleClickDropdown = (isStartTime: boolean) => {
     isStartTime ? setIsStartClicked((prev) => !prev) : setIsEndClicked((prev) => !prev);
   };
 
-  const handleClickTime = (e: React.MouseEvent<HTMLLIElement, MouseEvent>, isStartTime: boolean) => {
+  const handleClickTime = (e: React.MouseEvent<HTMLLIElement, MouseEvent>, isStartTime: boolean, idx: number) => {
     const { innerText } = e.currentTarget;
 
     if (isStartTime) {
-      handleSelectTime((prev) => [
-        prev[0] ? { startTime: innerText, endTime: prev[0].endTime } : { startTime: innerText, endTime: "" },
-      ]);
+      handleSelectTime([{ startTime: innerText, endTime: "" }]);
+      slicedTimeBlocks.current = TIME_BLOCKS.slice(idx + 1);
     } else {
       handleSelectTime((prev) => [
         prev[0] ? { startTime: prev[0].startTime, endTime: innerText } : { startTime: "", endTime: innerText },
@@ -45,6 +45,7 @@ function SelectTimeRange({
           const isSelectClicked = isStartTime ? isStartClicked : isEndClicked;
           const startTime = selectedTime[0]?.startTime || text;
           const endTime = selectedTime[0]?.endTime || text;
+          const validatedTimeblocks = isStartTime ? TIME_BLOCKS : slicedTimeBlocks.current;
 
           return (
             <React.Fragment key={text}>
@@ -64,8 +65,8 @@ function SelectTimeRange({
 
                 {isSelectClicked && (
                   <ul className="absolute top-full w-full max-h-[23rem] mt-[0.6rem] px-[0.8rem] overflow-x-hidden overflow-y-auto whitespace-nowrap text-center bg-gray-1 rounded-[0.4rem]">
-                    {TIME_BLOCKS.map((time, idx) => {
-                      const isMiddleItem = idx > 0 && idx < TIME_BLOCKS.length;
+                    {validatedTimeblocks.map((time, idx) => {
+                      const isMiddleItem = idx > 0 && idx < slicedTimeBlocks.current.length;
                       return (
                         // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
                         <li
@@ -73,7 +74,7 @@ function SelectTimeRange({
                           className={`py-[1.2rem] font-body7_m_16 text-gray-4 ${
                             isMiddleItem && "border-t-[0.1rem] border-t-gray-1.3"
                           }`}
-                          onClick={(e) => handleClickTime(e, isStartTime)}
+                          onClick={(e) => handleClickTime(e, isStartTime, idx)}
                         >
                           {time}
                         </li>
