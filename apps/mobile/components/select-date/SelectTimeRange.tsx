@@ -6,8 +6,10 @@ import { TIME_BLOCKS, TIME_RANGE_PLACEHOLDER } from "../../contants/timeRange";
 import type { SelectedTimeType } from "../../type/selectedDateType";
 
 function SelectTimeRange({
+  selectedTime,
   handleSelectTime,
 }: {
+  selectedTime: Array<SelectedTimeType>;
   handleSelectTime: (newTime: SetStateAction<Array<SelectedTimeType>>) => void;
 }) {
   const [isStartClicked, setIsStartClicked] = useState(false);
@@ -29,6 +31,7 @@ function SelectTimeRange({
         prev[0] ? { startTime: prev[0].startTime, endTime: innerText } : { startTime: "", endTime: innerText },
       ]);
     }
+    handleClickDropdown(isStartTime);
   };
 
   return (
@@ -40,6 +43,8 @@ function SelectTimeRange({
         {TIME_RANGE_PLACEHOLDER.map((text) => {
           const isStartTime = text === "시작 시간";
           const isSelectClicked = isStartTime ? isStartClicked : isEndClicked;
+          const startTime = selectedTime[0]?.startTime || text;
+          const endTime = selectedTime[0]?.endTime || text;
 
           return (
             <React.Fragment key={text}>
@@ -53,7 +58,7 @@ function SelectTimeRange({
                   }`}
                   onClick={() => handleClickDropdown(isStartTime)}
                 >
-                  <p className="font-body7_m_16 text-gray-6 ">{text}</p>
+                  <p className="font-body7_m_16 text-gray-6 ">{isStartTime ? startTime : endTime}</p>
                   {isSelectClicked ? <MobileIconArrowUp /> : <MobileIconArrowDown />}
                 </button>
 

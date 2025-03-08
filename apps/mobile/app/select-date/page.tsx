@@ -53,7 +53,7 @@ export default function page() {
   return (
     <div className="flex flex-col justify-between h-[calc(100dvh-11.2rem)]">
       {isSelectTimeStep ? (
-        <SelectTimeRange handleSelectTime={handleSelectTime} />
+        <SelectTimeRange selectedTime={selectedTime} handleSelectTime={handleSelectTime} />
       ) : (
         <>
           <TextField
