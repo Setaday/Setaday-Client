@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { type SetStateAction, useRef, useState } from "react";
 import SelectDateCalendar from "../../components/select-date/SelectDateCalendar";
 import SelectTimeRange from "../../components/select-date/SelectTimeRange";
-import type { SelectedDateType } from "../../type/selectedDateType";
+import type { SelectedDateType, SelectedTimeType } from "../../type/selectedDateType";
 
 export default function page() {
   const PLACE_HOLDER = "약속 이름을 작성해주세요";
@@ -20,7 +20,7 @@ export default function page() {
 
   const [planName, setPlanName] = useState("");
   const [selectedDate, setSelectedDate] = useState<Array<SelectedDateType>>([]);
-  const [isTimeSelected, setIsTimeSelected] = useState(false);
+  const [selectedTime, setSelectedTime] = useState<Array<SelectedTimeType>>([]);
   const selectedDateNum = useRef(0);
 
   const isRightName = planName.length && planName.length <= MAX_LENGTH;
@@ -28,8 +28,9 @@ export default function page() {
     selectedDate.length &&
     selectedDate.every(({ startYear, endYear }) => startYear && endYear) &&
     selectedDateNum.current <= MAX_DATE;
+  const isRightTime = selectedTime.length && selectedTime.every(({ startTime, endTime }) => startTime && endTime);
 
-  const isActiveBtn = isSelectTimeStep ? isTimeSelected : isRightName && isRightDate;
+  const isActiveBtn = isSelectTimeStep ? isRightTime : isRightName && isRightDate;
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
@@ -40,8 +41,8 @@ export default function page() {
     setSelectedDate(newDate);
   };
 
-  const handleSelectTime = (isSelected: boolean) => {
-    setIsTimeSelected(isSelected);
+  const handleSelectTime = (newTime: SetStateAction<Array<SelectedTimeType>>) => {
+    setSelectedTime(newTime);
   };
 
   const handleClickSubmitBtn = () => {

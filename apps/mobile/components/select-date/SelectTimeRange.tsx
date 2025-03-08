@@ -1,19 +1,34 @@
 "use client";
 
 import { MobileIconArrowDown, MobileIconArrowUp } from "@setaday/icon";
-import React, { useState } from "react";
+import React, { type SetStateAction, useState } from "react";
 import { TIME_BLOCKS, TIME_RANGE_PLACEHOLDER } from "../../contants/timeRange";
+import type { SelectedTimeType } from "../../type/selectedDateType";
 
 function SelectTimeRange({
   handleSelectTime,
 }: {
-  handleSelectTime: (isSelected: boolean) => void;
+  handleSelectTime: (newTime: SetStateAction<Array<SelectedTimeType>>) => void;
 }) {
   const [isStartClicked, setIsStartClicked] = useState(false);
-  const [isFinishClicked, setIsFinishClicked] = useState(false);
+  const [isEndClicked, setIsEndClicked] = useState(false);
 
   const handleClickDropdown = (isStartTime: boolean) => {
-    isStartTime ? setIsStartClicked((prev) => !prev) : setIsFinishClicked((prev) => !prev);
+    isStartTime ? setIsStartClicked((prev) => !prev) : setIsEndClicked((prev) => !prev);
+  };
+
+  const handleClickTime = (e: React.MouseEvent<HTMLLIElement, MouseEvent>, isStartTime: boolean) => {
+    const { innerText } = e.currentTarget;
+
+    if (isStartTime) {
+      handleSelectTime((prev) => [
+        prev[0] ? { startTime: innerText, endTime: prev[0].endTime } : { startTime: innerText, endTime: "" },
+      ]);
+    } else {
+      handleSelectTime((prev) => [
+        prev[0] ? { startTime: prev[0].startTime, endTime: innerText } : { startTime: "", endTime: innerText },
+      ]);
+    }
   };
 
   return (
@@ -24,7 +39,7 @@ function SelectTimeRange({
       <article className="flex items-center justify-center gap-x-[1.5rem]">
         {TIME_RANGE_PLACEHOLDER.map((text) => {
           const isStartTime = text === "시작 시간";
-          const isSelectClicked = isStartTime ? isStartClicked : isFinishClicked;
+          const isSelectClicked = isStartTime ? isStartClicked : isEndClicked;
 
           return (
             <React.Fragment key={text}>
@@ -47,12 +62,13 @@ function SelectTimeRange({
                     {TIME_BLOCKS.map((time, idx) => {
                       const isMiddleItem = idx > 0 && idx < TIME_BLOCKS.length;
                       return (
+                        // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
                         <li
                           key={time}
-                          value={time}
                           className={`py-[1.2rem] font-body7_m_16 text-gray-4 ${
                             isMiddleItem && "border-t-[0.1rem] border-t-gray-1.3"
                           }`}
+                          onClick={(e) => handleClickTime(e, isStartTime)}
                         >
                           {time}
                         </li>

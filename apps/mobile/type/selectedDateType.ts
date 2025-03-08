@@ -6,3 +6,8 @@ export interface SelectedDateType {
   endMonth: number;
   endDate: number;
 }
+
+export interface SelectedTimeType {
+  startTime: string;
+  endTime: string;
+}
