@@ -2,7 +2,7 @@
 
 import { MobileIconArrowLeftGray, MobileIconArrowRightGray } from "@setaday/icon";
 import { type MutableRefObject, type SetStateAction, useState } from "react";
-import { DAY, MONTH_NAMES } from "../../contants/calendarConst";
+import { DAY, MONTH_NAMES } from "../../contants/selectDateConst";
 import type { SelectedDateType } from "../../type/selectedDateType";
 import { getCalendarDate } from "../../utils/getCalendarDate";
 

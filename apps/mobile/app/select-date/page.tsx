@@ -5,13 +5,10 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { type SetStateAction, useRef, useState } from "react";
 import SelectDateCalendar from "../../components/select-date/SelectDateCalendar";
 import SelectTimeRange from "../../components/select-date/SelectTimeRange";
+import { MAX_DATE, MAX_LENGTH, PLACE_HOLDER } from "../../contants/selectDateConst";
 import type { SelectedDateType, SelectedTimeType } from "../../type/selectedDateType";
 
 export default function page() {
-  const PLACE_HOLDER = "약속 이름을 작성해주세요";
-  const MAX_LENGTH = 16;
-  const MAX_DATE = 14;
-
   const router = useRouter();
   const searchParams = useSearchParams();
   const currentStep = searchParams.get("current");
