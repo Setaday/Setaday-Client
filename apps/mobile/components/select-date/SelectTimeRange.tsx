@@ -40,15 +40,15 @@ function SelectTimeRange({ selectedTime, handleSelectTime }: SelectTimeRangeProp
         <h2 className="font-title1_sb_16 text-gray-6">약속 시간</h2>
       </header>
       <article className="flex items-center justify-center gap-x-[1.5rem]">
-        {TIME_RANGE_PLACEHOLDER.map((text) => {
-          const isStartTime = text === "시작 시간";
+        {TIME_RANGE_PLACEHOLDER.map((placeholder) => {
+          const isStartTime = placeholder === "시작 시간";
           const isSelectClicked = isStartTime ? isStartClicked : isEndClicked;
           const validatedTimeblocks = isStartTime ? TIME_BLOCKS : slicedTimeBlocks.current;
-          const startTime = selectedTime[0]?.startTime || text;
-          const endTime = selectedTime[0]?.endTime || text;
+          const startTime = selectedTime[0]?.startTime || placeholder;
+          const endTime = selectedTime[0]?.endTime || placeholder;
 
           return (
-            <React.Fragment key={text}>
+            <React.Fragment key={placeholder}>
               <article className="flex justify-between items-center w-full relative">
                 <button
                   type="button"
