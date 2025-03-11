@@ -72,7 +72,7 @@ function SelectTimeRange({
                 {isSelectClicked && (
                   <ul className="absolute top-full w-full max-h-[23rem] mt-[0.6rem] px-[0.8rem] overflow-x-hidden overflow-y-auto whitespace-nowrap text-center bg-gray-1 rounded-[0.4rem]">
                     {validatedTimeblocks.map((time, idx) => {
-                      const isMiddleItem = idx > 0 && idx < slicedTimeBlocks.current.length;
+                      const isMiddleItem = idx > 0 && idx < validatedTimeblocks.length;
                       const selectedList = isStartTime ? startTime : endTime;
                       return (
                         // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
