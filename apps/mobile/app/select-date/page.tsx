@@ -20,14 +20,14 @@ export default function page() {
   const [selectedTime, setSelectedTime] = useState<Array<SelectedTimeType>>([]);
   const selectedDateNum = useRef(0);
 
-  const isRightName = planName.length && planName.length <= MAX_LENGTH;
-  const isRightDate =
+  const isValidName = planName.length && planName.length <= MAX_LENGTH;
+  const isValidDate =
     selectedDate.length &&
     selectedDate.every(({ startYear, endYear }) => startYear && endYear) &&
     selectedDateNum.current <= MAX_DATE;
-  const isRightTime = selectedTime.length && selectedTime.every(({ startTime, endTime }) => startTime && endTime);
+  const isValidTime = selectedTime.length && selectedTime.every(({ startTime, endTime }) => startTime && endTime);
 
-  const isActiveBtn = isSelectTimeStep ? isRightTime : isRightName && isRightDate;
+  const isActiveBtn = isSelectTimeStep ? isValidTime : isValidName && isValidDate;
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
