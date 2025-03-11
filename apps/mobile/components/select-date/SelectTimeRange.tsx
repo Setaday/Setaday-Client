@@ -1,17 +1,11 @@
 "use client";
 
 import { MobileIconArrowDown, MobileIconArrowUp } from "@setaday/icon";
-import React, { type SetStateAction, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { TIME_BLOCKS, TIME_RANGE_PLACEHOLDER } from "../../contants/timeRange";
-import type { SelectedTimeType } from "../../type/selectedDateType";
+import type { ClickTimeProps, SelectTimeRangeProps } from "../../type/selectedDateType";
 
-function SelectTimeRange({
-  selectedTime,
-  handleSelectTime,
-}: {
-  selectedTime: Array<SelectedTimeType>;
-  handleSelectTime: (newTime: SetStateAction<Array<SelectedTimeType>>) => void;
-}) {
+function SelectTimeRange({ selectedTime, handleSelectTime }: SelectTimeRangeProps) {
   const [isDropdownClicked, setIsDropdownClicked] = useState({
     isStartClicked: false,
     isEndClicked: false,
@@ -26,7 +20,7 @@ function SelectTimeRange({
     }));
   };
 
-  const handleClickTime = (e: React.MouseEvent<HTMLLIElement, MouseEvent>, isStartTime: boolean, idx: number) => {
+  const handleClickTime = ({ e, isStartTime, idx }: ClickTimeProps) => {
     const { innerText } = e.currentTarget;
 
     if (isStartTime) {
@@ -81,7 +75,7 @@ function SelectTimeRange({
                           className={`py-[1.2rem] font-body7_m_16 ${
                             selectedList === time ? "text-key" : "text-gray-4"
                           }  ${isMiddleItem && "border-t-[0.1rem] border-t-gray-1.3"}`}
-                          onClick={(e) => handleClickTime(e, isStartTime, idx)}
+                          onClick={(e) => handleClickTime({ e, isStartTime, idx })}
                         >
                           {time}
                         </li>

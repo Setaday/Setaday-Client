@@ -1,20 +1,12 @@
 "use client";
 
 import { MobileIconArrowLeftGray, MobileIconArrowRightGray } from "@setaday/icon";
-import { type MutableRefObject, type SetStateAction, useState } from "react";
+import { useState } from "react";
 import { DAY, MAX_DATE, MONTH_NAMES } from "../../contants/selectDateConst";
-import type { SelectedDateType } from "../../type/selectedDateType";
+import type { ClickDateProps, SelctDateCalendarProps, SelectedDateType } from "../../type/selectedDateType";
 import { getCalendarDate } from "../../utils/getCalendarDate";
 
-function SelectDateCalendar({
-  selectedDateNum,
-  selectedDate,
-  handleSelectDate,
-}: {
-  selectedDateNum: MutableRefObject<number>;
-  selectedDate: Array<SelectedDateType>;
-  handleSelectDate: (newDate: SetStateAction<Array<SelectedDateType>>) => void;
-}) {
+function SelectDateCalendar({ selectedDateNum, selectedDate, handleSelectDate }: SelctDateCalendarProps) {
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth() + 1);
 
@@ -105,15 +97,7 @@ function SelectDateCalendar({
     }
   };
 
-  const handleClickDate = ({
-    clickedYear,
-    clickedMonth,
-    clickedDate,
-  }: {
-    clickedYear: number;
-    clickedMonth: number;
-    clickedDate: number;
-  }) => {
+  const handleClickDate = ({ clickedYear, clickedMonth, clickedDate }: ClickDateProps) => {
     // 해당 날짜가 포함된 selectedDate 객체 찾기
     const idxOfDate = selectedDate.findIndex(
       ({ startDate, startMonth, startYear, endDate, endMonth, endYear }) =>
