@@ -1,5 +1,3 @@
-import SelectDateHeader from "../../components/select-date/SelectDateHeader";
-
 export default function layout({
   children,
 }: Readonly<{
@@ -7,8 +5,7 @@ export default function layout({
 }>) {
   return (
     <section>
-      <SelectDateHeader />
-      <div className="px-[2rem] py-[3rem]">{children}</div>
+      <div>{children}</div>
     </section>
   );
 }
