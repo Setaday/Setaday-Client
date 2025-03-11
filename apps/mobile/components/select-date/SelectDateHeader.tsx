@@ -1,17 +1,17 @@
 "use client";
 
 import { MobileIconArrowLeftBlack } from "@setaday/icon";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
+import type { SelectDateHeaderProps } from "../../type/selectedDateType";
 
-function SelectDateHeader() {
+function SelectDateHeader({ step, changeStep }: SelectDateHeaderProps) {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const currentStep = searchParams.get("current");
-  const isSelectTimeStep = currentStep === "time";
+
+  const isSelectTimeStep = step === "time";
   const HEADER_CONTENT = isSelectTimeStep ? "시간 선택" : "날짜 선택";
 
   const clickArrowBtn = () => {
-    router.back();
+    isSelectTimeStep ? changeStep("date") : router.back();
   };
 
   return (

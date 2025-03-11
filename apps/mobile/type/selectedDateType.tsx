@@ -36,3 +36,8 @@ export interface ClickTimeProps {
   isStartTime: boolean;
   idx: number;
 }
+
+export interface SelectDateHeaderProps {
+  step: string;
+  changeStep: (step: string) => void;
+}
