@@ -2,7 +2,7 @@
 
 import { MobileIconArrowDown, MobileIconArrowUp } from "@setaday/icon";
 import React, { useRef, useState } from "react";
-import { TIME_BLOCKS, TIME_RANGE_PLACEHOLDER } from "../../contants/timeRange";
+import { TIME_BLOCKS, TIME_RANGE_PLACEHOLDER } from "../../constants/timeRange";
 import type { ClickTimeProps, SelectTimeRangeProps } from "../../type/selectedDateType";
 
 function SelectTimeRange({ selectedTime, handleSelectTime }: SelectTimeRangeProps) {

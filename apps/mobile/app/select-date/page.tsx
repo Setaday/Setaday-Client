@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { type SetStateAction, useRef, useState } from "react";
 import SelectDateCalendar from "../../components/select-date/SelectDateCalendar";
 import SelectTimeRange from "../../components/select-date/SelectTimeRange";
-import { MAX_DATE, MAX_LENGTH, PLACE_HOLDER } from "../../contants/selectDateConst";
+import { MAX_DATE, MAX_LENGTH, PLACE_HOLDER } from "../../constants/selectDateConst";
 import type { SelectedDateType, SelectedTimeType } from "../../type/selectedDateType";
 
 export default function page() {
