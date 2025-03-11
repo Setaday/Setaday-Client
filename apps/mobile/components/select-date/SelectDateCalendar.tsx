@@ -2,7 +2,7 @@
 
 import { MobileIconArrowLeftGray, MobileIconArrowRightGray } from "@setaday/icon";
 import { type MutableRefObject, type SetStateAction, useState } from "react";
-import { DAY, MONTH_NAMES } from "../../contants/selectDateConst";
+import { DAY, MAX_DATE, MONTH_NAMES } from "../../contants/selectDateConst";
 import type { SelectedDateType } from "../../type/selectedDateType";
 import { getCalendarDate } from "../../utils/getCalendarDate";
 
@@ -197,7 +197,7 @@ function SelectDateCalendar({
             month: startMonth,
             date: startDate,
           });
-          if (selectedDateNum.current > 14) {
+          if (selectedDateNum.current > MAX_DATE) {
             // 선택한 날짜가 14일을 넘었을 때 동작하는 플로우 추가 시 삭제 예정
             alert("14일 넘음");
           }
@@ -216,7 +216,7 @@ function SelectDateCalendar({
             month: endMonth,
             date: endDate,
           });
-          if (selectedDateNum.current > 14) {
+          if (selectedDateNum.current > MAX_DATE) {
             // 선택한 날짜가 14일을 넘었을 때 동작하는 플로우 추가 시 삭제 예정
             alert("14일 넘음");
           }
