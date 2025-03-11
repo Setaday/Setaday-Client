@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import SelectDateHeader from "../../components/select-date/SelectDateHeader";
 
 export default function layout({
@@ -6,9 +7,11 @@ export default function layout({
   children: React.ReactNode;
 }>) {
   return (
-    <section>
-      <SelectDateHeader />
-      <div className="px-[2rem] py-[3rem]">{children}</div>
-    </section>
+    <Suspense>
+      <section>
+        <SelectDateHeader />
+        <div className="px-[2rem] py-[3rem]">{children}</div>
+      </section>
+    </Suspense>
   );
 }
