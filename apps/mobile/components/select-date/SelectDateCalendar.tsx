@@ -2,13 +2,13 @@
 
 import { MobileIconArrowLeftGray, MobileIconArrowRightGray } from "@setaday/icon";
 import { useState } from "react";
-import { DAY, MAX_DATE, MONTH_NAMES } from "../../constants/selectDateConst";
+import { DAY, MAX_DATE, MONTH_NAMES, TODAYS_DATE, TODAYS_MONTH, TODAYS_YEAR } from "../../constants/selectDateConst";
 import type { ClickDateProps, SelctDateCalendarProps, SelectedDateType } from "../../type/selectedDateType";
 import { getCalendarDate } from "../../utils/getCalendarDate";
 
 function SelectDateCalendar({ selectedDateNum, selectedDate, handleSelectDate }: SelctDateCalendarProps) {
-  const [year, setYear] = useState(new Date().getFullYear());
-  const [month, setMonth] = useState(new Date().getMonth() + 1);
+  const [year, setYear] = useState(TODAYS_YEAR);
+  const [month, setMonth] = useState(TODAYS_MONTH);
 
   const ALL_DATE = getCalendarDate({ year, month });
 
@@ -248,9 +248,13 @@ function SelectDateCalendar({ selectedDateNum, selectedDate, handleSelectDate }:
         </header>
 
         <div className="grid grid-cols-7 grid-rows-5 gap-y-[1.8rem]">
-          {ALL_DATE.map(({ id, date, color }) =>
+          {ALL_DATE.map(({ id, date }) =>
             date.map((curDate) => {
-              const isActiveClick = id === "currentDate";
+              const isActiveDate =
+                year >= TODAYS_YEAR && (month > TODAYS_MONTH || (month === TODAYS_MONTH && curDate >= TODAYS_DATE));
+
+              const isActiveClick = id === "currentDate" && isActiveDate;
+
               const idxOfStartDate = selectedDate.findIndex(
                 ({ startDate, startMonth, startYear }) =>
                   startDate === curDate && startMonth === month && startYear === year
@@ -265,6 +269,8 @@ function SelectDateCalendar({ selectedDateNum, selectedDate, handleSelectDate }:
               const isEndDate = idxOfEndDate > -1;
 
               const isClickedNum = isActiveClick && (isStartDate || isEndDate);
+
+              const dateColor = isClickedNum ? "text-white" : isActiveClick ? "text-gray-6" : "text-gray-4";
 
               const isInRange =
                 isActiveClick &&
@@ -309,9 +315,9 @@ function SelectDateCalendar({ selectedDateNum, selectedDate, handleSelectDate }:
                   )}
 
                   <p
-                    className={`flex items-center justify-center w-[3.6rem] h-[3.6rem] z-10 rounded-full font-body5_m_14  ${
-                      isClickedNum ? "text-white" : color
-                    } ${isClickedNum && "bg-key"} `}
+                    className={`flex items-center justify-center w-[3.6rem] h-[3.6rem] z-10 rounded-full font-body5_m_14  ${dateColor} ${
+                      isClickedNum && "bg-key"
+                    } `}
                   >
                     {curDate}
                   </p>

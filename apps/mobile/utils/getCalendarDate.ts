@@ -22,13 +22,11 @@ export const getCalendarDate = ({
     {
       id: "lastDate",
       date: LAST_DATE,
-      color: "text-gray-4",
     },
     { id: "currentDate", date: DATE, color: "text-gray-6" },
     {
       id: "nextDate",
       date: NEXT_DATE,
-      color: "text-gray-4",
     },
   ];
 
