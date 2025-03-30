@@ -18,3 +18,7 @@ export const MONTH_NAMES = [
   "November",
   "December",
 ];
+
+export const TODAYS_YEAR = new Date().getFullYear();
+export const TODAYS_MONTH = new Date().getMonth() + 1;
+export const TODAYS_DATE = new Date().getDate();

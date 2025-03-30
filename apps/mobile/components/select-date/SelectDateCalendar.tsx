@@ -2,13 +2,13 @@
 
 import { MobileIconArrowLeftGray, MobileIconArrowRightGray } from "@setaday/icon";
 import { useState } from "react";
-import { DAY, MAX_DATE, MONTH_NAMES } from "../../constants/selectDateConst";
+import { DAY, MAX_DATE, MONTH_NAMES, TODAYS_MONTH, TODAYS_YEAR } from "../../constants/selectDateConst";
 import type { ClickDateProps, SelctDateCalendarProps, SelectedDateType } from "../../type/selectedDateType";
 import { getCalendarDate } from "../../utils/getCalendarDate";
 
 function SelectDateCalendar({ selectedDateNum, selectedDate, handleSelectDate }: SelctDateCalendarProps) {
-  const [year, setYear] = useState(new Date().getFullYear());
-  const [month, setMonth] = useState(new Date().getMonth() + 1);
+  const [year, setYear] = useState(TODAYS_YEAR);
+  const [month, setMonth] = useState(TODAYS_MONTH);
 
   const ALL_DATE = getCalendarDate({ year, month });
 
@@ -249,8 +249,9 @@ function SelectDateCalendar({ selectedDateNum, selectedDate, handleSelectDate }:
 
         <div className="grid grid-cols-7 grid-rows-5 gap-y-[1.8rem]">
           {ALL_DATE.map(({ id, date, color }) =>
-            date.map((curDate) => {
-              const isActiveClick = id === "currentDate";
+            date.map((curDate, idx) => {
+              const isActiveClick = id === "validDate";
+
               const idxOfStartDate = selectedDate.findIndex(
                 ({ startDate, startMonth, startYear }) =>
                   startDate === curDate && startMonth === month && startYear === year
@@ -286,10 +287,11 @@ function SelectDateCalendar({ selectedDateNum, selectedDate, handleSelectDate }:
               const isRightSelection = !!(matchedObj && matchedObj.endDate > 0 && matchedObj.startDate > 0);
 
               return (
-                // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
-                <div
-                  key={id + curDate}
+                <button
+                  // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+                  key={id + curDate + idx}
                   className="flex items-center justify-center relative"
+                  type="button"
                   onClick={() =>
                     isActiveClick &&
                     !isInRange &&
@@ -315,7 +317,7 @@ function SelectDateCalendar({ selectedDateNum, selectedDate, handleSelectDate }:
                   >
                     {curDate}
                   </p>
-                </div>
+                </button>
               );
             })
           )}
