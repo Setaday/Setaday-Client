@@ -287,11 +287,11 @@ function SelectDateCalendar({ selectedDateNum, selectedDate, handleSelectDate }:
               const isRightSelection = !!(matchedObj && matchedObj.endDate > 0 && matchedObj.startDate > 0);
 
               return (
-                // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
-                <div
+                <button
                   // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
                   key={id + curDate + idx}
                   className="flex items-center justify-center relative"
+                  type="button"
                   onClick={() =>
                     isActiveClick &&
                     !isInRange &&
@@ -317,7 +317,7 @@ function SelectDateCalendar({ selectedDateNum, selectedDate, handleSelectDate }:
                   >
                     {curDate}
                   </p>
-                </div>
+                </button>
               );
             })
           )}
